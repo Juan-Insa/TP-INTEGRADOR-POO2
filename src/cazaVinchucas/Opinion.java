@@ -1,5 +1,11 @@
 package cazaVinchucas;
 
+/**
+ * Clase que representa la opinion dada por un usuario sobre
+ * una determinada muestra.
+ * @author fercho
+ *
+ */
 public class Opinion {
 	
 	/**
