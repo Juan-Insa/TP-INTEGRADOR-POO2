@@ -1,13 +1,14 @@
 package cazaVinchucas;
 
-import java.security.KeyStore.Entry;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import cazaVinchucas.Opinion.Clasificacion;
 
 public class Muestra {
 	private Ubicacion ubicacion;
@@ -17,6 +18,18 @@ public class Muestra {
     private Clasificacion resultado = null;
     
     /*
+     * constructor de Muestra
+     */
+    public Muestra(Ubicacion ubicacion, String especie, List<Opinion> opiniones, int id, Clasificacion resultado) {
+		super();
+		this.ubicacion = ubicacion;
+		this.especie = especie;
+		this.opiniones = opiniones;
+		this.id = id;
+		this.resultado = resultado;
+	}
+
+	/*
      * recorre las opiniones indicando si hay dos expertos que coinciden con sus opiniones 
      */
     boolean esVerificada() {
@@ -54,7 +67,7 @@ public class Muestra {
     boolean hayOpinionDeExperto() {
     	Stream<Usuario> usersQueOpinaron = this.opiniones.stream().map(o -> o.getUsuario());
       	
-		return usersQueOpinaron.anyMatch(u -> u.esExperto().equals(true));
+		return usersQueOpinaron.anyMatch(u -> u.esExperto());
 	}
 
 	/*
@@ -62,17 +75,25 @@ public class Muestra {
      * o sea, si la opinion dada es de un experto, busca si hay otra opinion de experto con
      * la misma clasificación.
      */
-    void chequearResultado(Opinion opinion) {
-		if (opinion.esDeExperto() && esVerificable(opinion)) {
-			return opinion.getValor();
+    Clasificacion chequearResultado(Opinion opinion) {
+		if (opinion.getUsuario().esExperto() && this.esVerificable(opinion.getValor())) {
+			this.resultado = opinion.getValor();
+			return this.resultado;
+		}
+		else {
+			return null;
 		}
 	}
     
-    boolean esVerificable(Clasificacion clasificacion) {
+    /**
+     * indica dada una nueva clasificación si la muestra ya es verificable.
+     * @param c es la clasificación nueva a comparar con las actuales.
+     */
+    boolean esVerificable(Clasificacion c) {
 		Stream<Clasificacion> clasifDeExpertos = this.opiniones.stream()
-				                                           .filter(o -> o.esExperto())
-				                                           .map(o -> o.getValor());
-		return clasifDeExpertos.anyMatch(v -> v.equals(clasifDeExpertos));
+				                                               .filter(o -> o.getUsuario().esExperto())
+				                                               .map(o -> o.getValor());
+		return clasifDeExpertos.anyMatch(v -> v.equals(c));
 	}
 
 	/*
@@ -98,17 +119,17 @@ public class Muestra {
 	 * precon: tiene que haber una opinion de experto en la muestra.
 	 */
 	Clasificacion clasificacionDeExperto() {
-		Clasificacion clasificacionExperta = this.opiniones.stream()
+		Optional<Opinion> opinionExperta = this.opiniones.stream()
 				                                           .filter(o -> o.getUsuario().esExperto())
 				                                           .findFirst();
 		
-		return clasificacionExperta;
+        return opinionExperta.get().getValor();
 	}
 	
 	/*
 	 * devuelve la clasificación con más iteraciones entre las opiniones de la muestra. 
 	 */
-	String clasificacionMasVotada() {
+	Clasificacion clasificacionMasVotada() {
 		// map donde la clave es la clasificación de una opinion y el valor es su cantidad de iteraciones.
 		Map<Clasificacion, Integer> map = new HashMap<Clasificacion, Integer>(); 
 		                                                           
@@ -128,8 +149,8 @@ public class Muestra {
 		for (Map.Entry<Clasificacion, Integer> e : map.entrySet()) { // utilizo Map.Entry para iterar sobre los pares
 			if (maxC == null || e.getValue() > maxC.getValue()) {    // si la clasificación actual tiene mas votos
 				maxC = e;                                            // lo reemplazo
-			}
-			return maxC.getKey();                                    // obtengo la clasificación más votada
+			}	                                  	
 		}
+		return maxC.getKey();   // obtengo la clasificación más votada                                   
 	}
 }
