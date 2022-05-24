@@ -16,7 +16,7 @@ class OpinionTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		//setUp
-		dummy = mock(Usuario.class);
+		dummy  = mock(Usuario.class);
 		dummy2 = mock(Usuario.class);
 		
 		a = new Opinion(dummy, Clasificacion.VINCHUCA);

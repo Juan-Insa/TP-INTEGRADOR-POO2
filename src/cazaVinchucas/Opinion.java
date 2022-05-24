@@ -52,6 +52,4 @@ public class Opinion {
 	public Clasificacion getValor() {
 		return valor;
 	}
-	
-	///////////////////////////////////////////////////////////
 }

@@ -20,11 +20,10 @@ public class Muestra {
     /*
      * constructor de Muestra
      */
-    public Muestra(Ubicacion ubicacion, String especie, List<Opinion> opiniones, int id, Clasificacion resultado) {
+    public Muestra(Ubicacion ubicacion, String especie, int id, Clasificacion resultado) {
 		super();
 		this.ubicacion = ubicacion;
 		this.especie = especie;
-		this.opiniones = opiniones;
 		this.id = id;
 		this.resultado = resultado;
 	}
@@ -33,7 +32,7 @@ public class Muestra {
      * recorre las opiniones indicando si hay dos expertos que coinciden con sus opiniones 
      */
     boolean esVerificada() {
-    	return !this.resultado.equals(null);
+    	return this.resultado != null;
     }
     
     /*
@@ -43,8 +42,8 @@ public class Muestra {
      */
     void agregarOpinion(Opinion opinion) {
         if (this.puedeOpinar(opinion.getUsuario())) {
-            this.opiniones.add(opinion);
             this.chequearResultado(opinion);
+            this.opiniones.add(opinion);
         }
     }
     
@@ -76,7 +75,7 @@ public class Muestra {
      * la misma clasificación.
      */
     Clasificacion chequearResultado(Opinion opinion) {
-		if (opinion.getUsuario().esExperto() && this.esVerificable(opinion.getValor())) {
+		if (opinion.getUsuario().esExperto() && this.sePuedeVerificar(opinion.getValor())) {
 			this.resultado = opinion.getValor();
 			return this.resultado;
 		}
@@ -89,7 +88,7 @@ public class Muestra {
      * indica dada una nueva clasificación si la muestra ya es verificable.
      * @param c es la clasificación nueva a comparar con las actuales.
      */
-    boolean esVerificable(Clasificacion c) {
+    boolean sePuedeVerificar(Clasificacion c) {
 		Stream<Clasificacion> clasifDeExpertos = this.opiniones.stream()
 				                                               .filter(o -> o.getUsuario().esExperto())
 				                                               .map(o -> o.getValor());
@@ -140,8 +139,8 @@ public class Muestra {
 		
 		// recorro cada clasificación
 		for (Clasificacion c : clasificaciones) {
-			Integer votos = map.get(c);                // obtengo la cant de votos de la clasificación.
-			map.put(c, votos == null ? 1 : votos++);   // si no tiene votos le asigna 1, sino agrega un voto a la cant.
+			Integer votos = map.get(c);                  // obtengo la cant de votos de la clasificación.
+			map.put(c, votos == null ? 1 : votos + 1);   // si no tiene votos le asigna 1, sino agrega un voto a la cant.
 		}
 		
 		Map.Entry<Clasificacion, Integer> maxC = null; // variable para almacenar la opinion mas votada
@@ -152,5 +151,12 @@ public class Muestra {
 			}	                                  	
 		}
 		return maxC.getKey();   // obtengo la clasificación más votada                                   
+	}
+	
+	/*
+	 * devuelve la lista de opiniones de la muestra
+	 */
+	List<Opinion> getOpiniones(){
+		return this.opiniones;
 	}
 }
