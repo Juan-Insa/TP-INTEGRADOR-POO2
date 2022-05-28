@@ -28,26 +28,45 @@ public class Muestra {
 		this.id = id;
 		this.resultado = Clasificacion.NINGUNA;
 		this.estado = estado;
-		
 	}
 
 	/*
      * recorre las opiniones indicando si hay dos expertos que coinciden con sus opiniones 
      */
     boolean esVerificada() {
-    	return this.resultado != null;
+    	return this.resultado != Clasificacion.NINGUNA;
     }
     
-    /*
-     * agrega una opinion si el usuario que la produjo puede opinar en la
-     * muestra, y chequea si con la muestra aportada se puede dar un resultado
-     * a la muestra.
+    /**
+     * agrega una opinion a la lista de opiniones.
+     * @param opinion, es la opinion a agregar a la lista.
      */
     void agregarOpinion(Opinion opinion) {
+    	this.opiniones.add(opinion);
+    	
+    	/*
+    	if (this.estado.puedeOpinar(opinion.getUsuario(), this)) {
+    		this.estado.agregarOpinion(opinion, this);
+    		this.chequearResultado(opinion);
+    	};
+    	
         if (this.puedeOpinar(opinion.getUsuario())) {
             this.chequearResultado(opinion);
             this.opiniones.add(opinion);
         }
+        */
+    }
+    
+    /**
+     * delega al estado de la muestra el proceso de agregar una nueve opinion.
+     * @param opinion, es la opinion a agregar.
+     */
+    void agregarOpinionRequest(Opinion opinion) {
+    	// acá hago el cambio de estado si la opinion dada es de experto.
+    	if (opinion.getUsuario().esExperto()) {
+    		this.setEstado(new ConOpinionExperto());
+    	}
+    	this.estado.agregarOpinion(opinion, this);
     }
     
     /*
@@ -83,7 +102,7 @@ public class Muestra {
 			return this.resultado;
 		}
 		else {
-			return null;
+			return Clasificacion.NINGUNA;
 		}
 	}
     
@@ -169,5 +188,23 @@ public class Muestra {
 	 */
 	public Clasificacion getResultado() {
 		return this.resultado;
+	}
+
+	
+    void setResultado(Clasificacion valor) {
+	    this.resultado = valor;	
+	}
+
+    /**
+     * establece el estado de la muestra
+     * @param estado, es el estado a establecer.
+     */
+	void setEstado(EstadoMuestra estado) {
+		this.estado = estado;
+	}
+	
+	Opinion ultimaOpinion() {
+		int ultimoIndex = this.opiniones.size() - 1;
+		return this.opiniones.get(ultimoIndex);
 	}
 }
