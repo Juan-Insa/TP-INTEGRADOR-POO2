@@ -1,4 +1,4 @@
-package cazaVinchucas;
+ package cazaVinchucas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,17 +15,20 @@ public class Muestra {
     private String especie;
     private List<Opinion> opiniones = new ArrayList<>();
     private int id; 
-    private Clasificacion resultado = null;
+    private Clasificacion resultado;
+    private EstadoMuestra estado;
     
     /*
      * constructor de Muestra
      */
-    public Muestra(Ubicacion ubicacion, String especie, int id, Clasificacion resultado) {
+    public Muestra(Ubicacion ubicacion, String especie, int id, EstadoMuestra estado) {
 		super();
 		this.ubicacion = ubicacion;
 		this.especie = especie;
 		this.id = id;
-		this.resultado = resultado;
+		this.resultado = Clasificacion.NINGUNA;
+		this.estado = estado;
+		
 	}
 
 	/*
@@ -158,5 +161,13 @@ public class Muestra {
 	 */
 	List<Opinion> getOpiniones(){
 		return this.opiniones;
+	}
+
+	/**
+	 * indica el resultado verificado de la muestra.
+	 * @return el resultado de la muestra
+	 */
+	public Clasificacion getResultado() {
+		return this.resultado;
 	}
 }
