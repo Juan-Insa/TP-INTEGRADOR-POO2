@@ -5,19 +5,7 @@ import java.util.stream.Stream;
 import cazaVinchucas.Opinion.Clasificacion;
 
 public class ConOpinionExperto extends EstadoMuestra {
-
-	@Override
-	// es verdadera solamente si la muestra dada no es verificada.
-	boolean puedeOpinar(Usuario usuario, Muestra muestra) {	
-		return !muestra.esVerificada();
-	}
-
-	@Override
-	// devuelve la clasificación de la última opinion de la muestra. Por qué? no hay porqué.
-	Clasificacion getResultadoActual(Muestra muestra) {
-		return muestra.ultimaOpinion().getValor();
-	}
-    
+	
 	/**
 	 * establece el resultado final de la muestra si con la opinión que se agrega
 	 * se verifica la muestra (o sea, si hay otra opinion de experto que coincida).
@@ -47,6 +35,27 @@ public class ConOpinionExperto extends EstadoMuestra {
 		return clasifDeExpertos.anyMatch(v -> v.equals(c));
 	}
     
+	@Override
+	/**
+	 * devuelve la clasificación de la última opinion de la muestra. Por qué? no hay porqué.
+	 */
+	Clasificacion getResultadoActual(Muestra muestra) {
+		return this.ultimaOpinion(muestra).getValor();
+	}
     
+    /**
+     * devuelve la última opinion de la muestra, si esta vacía devuelve null.
+     * @param muestra
+     * @return
+     */
+	Opinion ultimaOpinion(Muestra muestra) {
+		int ultimoIndex = muestra.getOpiniones().size() - 1;
+		if (ultimoIndex >= 0) {
+			return muestra.getOpiniones().get(ultimoIndex);
+		}
+		else {
+			return null;
+		}
+	}
 
 }
