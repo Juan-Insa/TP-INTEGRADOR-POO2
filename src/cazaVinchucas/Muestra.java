@@ -31,7 +31,7 @@ public class Muestra {
 	}
 
 	/**
-     * recorre las opiniones indicando si hay dos expertos que coinciden con sus opiniones 
+     * indica si la muestra tiene un resultado.
      */
     boolean esVerificada() {
     	return this.resultado != Clasificacion.NINGUNA;

@@ -58,4 +58,10 @@ public class ConOpinionExperto extends EstadoMuestra {
 		}
 	}
 
+	@Override
+	// en este estado, sólo va a poder opinar si el que opina es experto.
+	boolean pudedeOpinar(Opinion opinion) {
+		return opinion.getUsuario().esExperto();
+	}
+
 }

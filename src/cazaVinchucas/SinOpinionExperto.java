@@ -67,4 +67,10 @@ public class SinOpinionExperto extends EstadoMuestra{
 		
 		return maxC.getKey();   // obtengo la clasificación más votada                                   
 	}
+
+	@Override
+	// siempre va a ser true para este estado porque admite cualquier opinion.
+	boolean pudedeOpinar(Opinion opinion) {
+		return true;
+	}
 }
