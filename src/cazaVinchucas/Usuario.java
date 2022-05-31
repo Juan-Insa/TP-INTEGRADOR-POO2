@@ -39,7 +39,9 @@ public class Usuario {
 	
 	/**
 	 * Agrega muestra a la lista de muestras del sistema.
-	 * @param muestraEnviada es la muestra a agregar
+	 * @param ubicacion es la ubicacion de la muestra a enviar
+	 * @param foto es la foto de la muestra a enviar
+	 * @param especie es la clasificacion de la muestra a enviar
 	 */
 	public void enviarMuestra(Ubicacion ubicacion, String foto, Clasificacion especie) {
 		Muestra muestra = new Muestra(ubicacion, this, foto, especie);
