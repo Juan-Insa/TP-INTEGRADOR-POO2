@@ -41,17 +41,20 @@ public class Usuario {
 	 * Agrega muestra a la lista de muestras del sistema.
 	 * @param muestraEnviada es la muestra a agregar
 	 */
-	public void enviarMuestra(Muestra muestraEnviada) {
-		
+	public void enviarMuestra(Ubicacion ubicacion, String foto, Clasificacion especie) {
+		Muestra muestra = new Muestra(ubicacion, this, foto, especie);
+		Sistema.agregar(muestra);
 	}
 	
 	/**
 	 * Agrega opinion a la lista de opiniones de una muestra del sistema.
-	 * @param opinionDada es la opinion a agregar
+	 * @param especie es la clasificacion de vinchuca que opina el usuario
+	 * @param muestra es la muestra sobre la que opina el usuario
 	 */
-	//public void opinar(Opinion opinionDada) {
-	//	
-	//}
+	public void opinar(Clasificacion especie, Muestra muestra) {
+		unaOpinion = new Opinion(this, especie);
+		muestra.agregarOpinion(unaOpinion);
+	}
 	
 	/**
 	 * Actualiza la categoria de un usuario del sistema
