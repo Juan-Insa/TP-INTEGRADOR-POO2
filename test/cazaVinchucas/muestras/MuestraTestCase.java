@@ -29,7 +29,6 @@ class MuestraTestCase {
 		ue1 = mock(Usuario.class); ue2 = mock(Usuario.class); ue3 = mock(Usuario.class);
 		
 		// opiniones
-		op1 = new Opinion(ub1, Clasificacion.CHINCHEFOLIADA); 
 		op2 = new Opinion(ub2, Clasificacion.VINCHUCA); 
 		op3 = new Opinion(ub3, Clasificacion.VINCHUCA); 
 		op4 = new Opinion(ue1, Clasificacion.PHTIACHINCHE);
@@ -86,9 +85,10 @@ class MuestraTestCase {
 	
 	@Test //agregarOpinion
 	void agregarOpinionNoAgregaLaOpinionDeUsuarioQueYaOpino() {
-		assertEquals(1, m.getOpiniones().size());
-		m.agregarOpinion(op1);
-		assertEquals(1, m.getOpiniones().size());
+		m.agregarOpinion(op2);
+		assertEquals(2, m.getOpiniones().size());
+		m.agregarOpinion(op2);
+		assertEquals(2, m.getOpiniones().size());
 	}
 	
 	@Test //hayOpinionDe
@@ -118,7 +118,20 @@ class MuestraTestCase {
 		assertEquals(Clasificacion.POCOCLARA, m.getUltimoResultado());
 	}
 	
-	
+	@Test //agregarOpinion
+	void getOpiniones() {
+		m.agregarOpinion(op2); m.agregarOpinion(op4);
+		ArrayList<Opinion> mismasOpiniones = new ArrayList<Opinion>();
+		mismasOpiniones.add(m.getOpiniones().get(0));
+		mismasOpiniones.add(op2);
+		
+		assertFalse(mismasOpiniones.containsAll(m.getOpiniones())); //faltaria op4
+		
+		mismasOpiniones.add(op4); // se agrega op4
+		
+		assertTrue(mismasOpiniones.containsAll(m.getOpiniones())); // son iguales
+		
+	}
 	
 	/*
 	@Test //agregarOpinion
