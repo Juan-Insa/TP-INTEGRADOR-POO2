@@ -1,4 +1,4 @@
-package cazaVinchucas;
+package cazaVinchucas.muestras;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -7,6 +7,9 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cazaVinchucas.Opinion;
+import cazaVinchucas.Ubicacion;
+import cazaVinchucas.Usuario;
 import cazaVinchucas.Opinion.Clasificacion;
 
 class MuestraTestCase {
