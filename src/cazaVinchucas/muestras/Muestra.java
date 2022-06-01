@@ -1,4 +1,4 @@
- package cazaVinchucas;
+ package cazaVinchucas.muestras;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import cazaVinchucas.Opinion;
+import cazaVinchucas.Ubicacion;
+import cazaVinchucas.Usuario;
 import cazaVinchucas.Opinion.Clasificacion;
 
+/**
+ * Clase encargada de representar una muestra tomada por un usuario.
+ * 
+ * @author Juan Cruz y Fernando
+ *
+ */
 public class Muestra {
 	private Ubicacion ubicacion;
 	private String foto;
@@ -19,8 +28,9 @@ public class Muestra {
     private EstadoMuestra estado;
     
     /**
+     * Constructor de muestra
      * 
-     * @param ubicacion
+     * @param ubicacion donde se tomo la muestra
      * @param user Usuario que saco la foto
      * @param foto Un string con el valor de la foto.
      * @param especie La clasificacion que hace el fotografo sobre la foto.
@@ -44,7 +54,7 @@ public class Muestra {
 	}
     
     /**
-     * agrega una opinion a la lista de opiniones.
+     * Agrega una opinion a la lista de opiniones.
      * @param opinion, es la opinion a agregar a la lista.
      */
     void addOpinion(Opinion opinion) {
@@ -52,24 +62,25 @@ public class Muestra {
     }
     
     /**
-     * delega al estado de la muestra el proceso de agregar una nueva opinion.
+     * Delega al estado de la muestra el proceso de agregar una nueva opinion.
      * @param opinion, es la opinion a agregar.
      * Nota: acá se hace cambio de estado en el caso de que la opinion ingresada
      * sea de experto, salvo que ya esté verificada la muestra.
      */
-    void agregarOpinion(Opinion opinion) {
+    public void agregarOpinion(Opinion opinion) {
     	this.estado.agregarOpinion(opinion, this);
     }
 
 	/**
-	 * devuelve la lista de opiniones de la muestra
+	 * Devuelve la lista de opiniones de la muestra
+	 * @return una lista de opiniones
 	 */
 	List<Opinion> getOpiniones(){
 		return this.opiniones;
 	}
 
 	/**
-	 * indica el resultado verificado de la muestra.
+	 * Indica el resultado verificado de la muestra.
 	 * @return el resultado de la muestra
 	 */
 	public Clasificacion getResultado() {
@@ -77,7 +88,7 @@ public class Muestra {
 	}
 
 	/**
-	 * establece el resultado verificado de la muestra.
+	 * Establece el resultado verificado de la muestra.
 	 * @param valor, es la clasificación a establecer como resultado.
 	 */
     void setResultado(Clasificacion valor) {
@@ -85,10 +96,20 @@ public class Muestra {
 	}
 
 
+    /**
+     * Establece un cambio del estado de muestra.
+     * @param estado es el estado al que cambia la muestra.
+     */
 	void setEstado(EstadoMuestra estado) {
 		this.estado = estado;
 	}
 	
+	/**
+	 * Devuelve la clasificación de la última observación recibida.
+	 * @return La última clasificación recibida.
+	 * Nota: Si el estado de la muestra fuese verificado, entonces, la
+	 * clasificación devuelta sería equivalente al resultado final.
+	 */
 	public Clasificacion getUltimoResultado() {
 		return opiniones.get(opiniones.size()-1).getValor();
 	}

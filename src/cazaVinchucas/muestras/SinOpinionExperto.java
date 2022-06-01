@@ -1,17 +1,24 @@
-package cazaVinchucas;
+package cazaVinchucas.muestras;
 
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import cazaVinchucas.Opinion;
 import cazaVinchucas.Opinion.Clasificacion;
 
+/**
+ * Clase encargada de representar el comportamiento particular de una 
+ * muestra que aún no tiene una opinion de experto.
+ * 
+ * @author Juan Cruz y Fernando
+ *
+ */
 public class SinOpinionExperto extends EstadoMuestra{
 
     /**
-     * agrega la opinion a la muestra y le cambia el estado si es opinion
+     * Agrega la opinion a la muestra y le cambia el estado si es opinion
      * de un experto.
      */
 	@Override
@@ -21,7 +28,7 @@ public class SinOpinionExperto extends EstadoMuestra{
 	}
 	
 	/**
-	 * cambia el estado de la muestra si la opinion es de un experto.
+	 * Cambia el estado de la muestra si la opinion es de un experto.
 	 * @param opinion, la opinion a determinar si es de experto.
 	 * @param muestra, la muestra a cambiar de estado.
 	 */
@@ -32,8 +39,9 @@ public class SinOpinionExperto extends EstadoMuestra{
 	}
 
 	/**
-	 * obtiene la clasificación con más iteraciones entre las opiniones de la muestra.
+	 * Obtiene la clasificación con más iteraciones entre las opiniones de la muestra.
 	 * @param muestra, la muestra a obtener el resultado actual.
+	 * @return Una Clasificacion con el resultado actual según corresponde.
 	 */
 	@Override
 	Clasificacion getResultadoActual(Muestra muestra) {

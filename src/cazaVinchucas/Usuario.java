@@ -2,7 +2,7 @@ package cazaVinchucas;
 
 public class Usuario {
     
-	boolean esExperto() {
+	public boolean esExperto() {
 		return false;
 	}
 }

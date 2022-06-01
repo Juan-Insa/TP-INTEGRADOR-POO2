@@ -1,11 +1,24 @@
-package cazaVinchucas;
+package cazaVinchucas.muestras;
 
 import java.util.stream.Stream;
 
+import cazaVinchucas.Opinion;
 import cazaVinchucas.Opinion.Clasificacion;
 
+/**
+ * Clase encargada de representar el comportamiento particular de una 
+ * muestra que ya tiene una opinion de experto, pero, aún no esta 
+ * verificada.
+ * 
+ * @author Juan Cruz y Fernando
+ *
+ */
 public class ConOpinionExperto extends EstadoMuestra {
 	
+	/**
+	 * Agrega la opinion a la muestra y le cambia el estado si corresponde.
+	 * Nota: Solo agregará la opinion si corresponde a un experto.
+	 */
 	@Override
 	void agregarOpinion(Opinion opinion, Muestra muestra) {
 		if(opinion.getUsuario().esExperto()) {
@@ -15,7 +28,7 @@ public class ConOpinionExperto extends EstadoMuestra {
 	}
 
 	/**
-	 * establece el resultado final de la muestra si con la opinión que se agrega
+	 * Establece el resultado final de la muestra si con la opinión que se agrega
 	 * se verifica la muestra (o sea, si hay otra opinion de experto que coincida).
 	 * @param opinion, la opinion a chequear si coincide con otra.
 	 * @param muestra, la muestra a chequear si se verifica.
@@ -31,11 +44,11 @@ public class ConOpinionExperto extends EstadoMuestra {
 	}
 	
     /**
-     * indica si la muestra se puede verificar si se agrega la clasificación.
+     * Indica si la muestra se puede verificar si se agrega la clasificación.
      * @param c, es la nueva  clasificación a comparar con las actuales.
      * @param muestra, es la muestra a determinar si se verifica.
      */
-    private boolean sePuedeVerificar(Clasificacion c, Muestra muestra) { //no entendí
+    private boolean sePuedeVerificar(Clasificacion c, Muestra muestra) {
 		Stream<Clasificacion> clasifDeExpertos = muestra.getOpiniones().stream()
 				                                                       .filter(o -> o.getUsuario().esExperto())
 				                                                       .map(o -> o.getValor());
@@ -43,10 +56,7 @@ public class ConOpinionExperto extends EstadoMuestra {
 	}
     
 	@Override
-	/**
-	 * devuelve la clasificación de la última opinion de la muestra. Por qué? no hay porqué.
-	 * ACLARACION: FALTA INDEFINIDO EN CASO DE MAS DE UN EXPERTO
-	 */
+	/*Nota: Inconcluso.*/
 	Clasificacion getResultadoActual(Muestra muestra) {
 		return muestra.getUltimoResultado();
 	}
