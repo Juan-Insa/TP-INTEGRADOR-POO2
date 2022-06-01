@@ -1,5 +1,6 @@
 package cazaVinchucas;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,13 +31,6 @@ public class SinOpinionExperto extends EstadoMuestra{
 		}
 	}
 
-	@Override
-	/**
-	 * no hace nada porque no puede establecerse un resultado con la
-	 * opinion de un usuario básico.
-	 */
-	void chequearResultado(Opinion opinion, Muestra muestra) {}
-
 	/**
 	 * obtiene la clasificación con más iteraciones entre las opiniones de la muestra.
 	 * @param muestra, la muestra a obtener el resultado actual.
@@ -44,7 +38,7 @@ public class SinOpinionExperto extends EstadoMuestra{
 	@Override
 	Clasificacion getResultadoActual(Muestra muestra) {
 		// map donde la clave es la clasificación de una opinion y el valor es su cantidad de iteraciones.
-		Map<Clasificacion, Integer> map = new HashMap<Clasificacion, Integer>(); 
+		Map<Clasificacion, Integer> map = new HashMap<Clasificacion, Integer>();
 		                                                           
 		// lista de las clasificaciones de las opiniones.
 		List<Clasificacion> clasificaciones = muestra.getOpiniones().stream()
@@ -68,9 +62,4 @@ public class SinOpinionExperto extends EstadoMuestra{
 		return maxC.getKey();   // obtengo la clasificación más votada                                   
 	}
 
-	@Override
-	// siempre va a ser true para este estado porque admite cualquier opinion.
-	boolean pudedeOpinar(Opinion opinion) {
-		return true;
-	}
 }

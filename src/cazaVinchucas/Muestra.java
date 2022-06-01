@@ -12,30 +12,36 @@ import cazaVinchucas.Opinion.Clasificacion;
 
 public class Muestra {
 	private Ubicacion ubicacion;
-    private String especie;
+	private String foto;
+    private Clasificacion resultado = Clasificacion.NINGUNA;
     private List<Opinion> opiniones = new ArrayList<>();
-    private int id; 
-    private Clasificacion resultado;
+    private int id; //Hay que ver si agregar getter?
     private EstadoMuestra estado;
     
     /**
-     * constructor de Muestra
+     * 
+     * @param ubicacion
+     * @param user Usuario que saco la foto
+     * @param foto Un string con el valor de la foto.
+     * @param especie La clasificacion que hace el fotografo sobre la foto.
+     * @param id Un identificador de la muestra.
+     * @param estado El estado actual de la muestra.
      */
-    public Muestra(Ubicacion ubicacion, String especie, int id, EstadoMuestra estado) {
-		super();
-		this.ubicacion = ubicacion;
-		this.especie = especie;
-		this.id = id;
+    public Muestra(Ubicacion ubicacion, Usuario user, String foto, Clasificacion especie) {
+		
+    	//Inicializa colaboradores internos;
+    	this.ubicacion = ubicacion;
 		this.resultado = Clasificacion.NINGUNA;
-		this.estado = estado;
+		this.id = user.getId();
+		this.foto = foto;
+		
+    	//Inicializa el estado y agrega la opinion
+    	//Del que saco la foto
+    	this.estado = new SinOpinionExperto();
+		Opinion opinionDeFotografo = new Opinion(user, especie);
+		this.agregarOpinion(opinionDeFotografo);
+		
 	}
-
-	/**
-     * indica si la muestra tiene un resultado.
-     */
-    boolean esVerificada() {
-    	return this.resultado != Clasificacion.NINGUNA;
-    }
     
     /**
      * agrega una opinion a la lista de opiniones.
@@ -82,8 +88,9 @@ public class Muestra {
 	void setEstado(EstadoMuestra estado) {
 		this.estado = estado;
 	}
-
-	public EstadoMuestra getEstado() {
-		return this.estado;
+	
+	public Clasificacion getUltimoResultado() {
+		return opiniones.get(opiniones.size()-1).getValor();
 	}
+
 }
