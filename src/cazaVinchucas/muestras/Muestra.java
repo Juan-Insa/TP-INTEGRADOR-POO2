@@ -78,7 +78,7 @@ public class Muestra {
 	 * @param muestra, es la muestra a saber si tiene la opinion.
 	 * @return verdadero si hay una opinion con el id dado, falso de lo contrario 
 	 */
-	private boolean hayOpinionDe(int idOpinador) {
+	boolean hayOpinionDe(int idOpinador) {
 		Stream<Integer> ids = this.getOpiniones().stream().map(o -> o.getUsuario().getId());
  		return ids.anyMatch(id -> id.equals(idOpinador));
 	}

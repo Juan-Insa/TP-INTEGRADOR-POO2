@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,23 +24,23 @@ class MuestraTestCase {
 	@BeforeEach
 	void setUp() throws Exception {
 		
-		// mocks de opiniones
-		op1 = mock(Opinion.class); op2 = mock(Opinion.class); op3 = mock(Opinion.class);
-		op4 = mock(Opinion.class); op5 = mock(Opinion.class); op6 = mock(Opinion.class);
-		
 		// mocks de usuario
 		ub1 = mock(Usuario.class); ub2 = mock(Usuario.class); ub3 = mock(Usuario.class);
 		ue1 = mock(Usuario.class); ue2 = mock(Usuario.class); ue3 = mock(Usuario.class);
 		
+		// opiniones
+		op1 = new Opinion(ub1, Clasificacion.CHINCHEFOLIADA); 
+		op2 = new Opinion(ub2, Clasificacion.VINCHUCA); 
+		op3 = new Opinion(ub3, Clasificacion.VINCHUCA); 
+		op4 = new Opinion(ue1, Clasificacion.PHTIACHINCHE);
+		op5 = new Opinion(ue2, Clasificacion.PHTIACHINCHE); 
+		op6 = new Opinion(ue3, Clasificacion.POCOCLARA); 
+		
+		/*
 		// retornos de opiniones a getUsuario
 		when(op1.getUsuario()).thenReturn(ub1); when(op2.getUsuario()).thenReturn(ub2);
 		when(op3.getUsuario()).thenReturn(ub3); when(op4.getUsuario()).thenReturn(ue1);
 		when(op5.getUsuario()).thenReturn(ue2);
-		
-		// retornos de opiniones a getValor
-		when(op1.getUsuario()).thenReturn(ub1); when(op2.getUsuario()).thenReturn(ub2);
-		when(op3.getUsuario()).thenReturn(ub3); when(op4.getUsuario()).thenReturn(ue1);
-		when(op5.getUsuario()).thenReturn(ue2); when(op6.getUsuario()).thenReturn(ue3);
 		
 		// retornos de opiniones a getValor
 		when(op1.getValor()).thenReturn(Clasificacion.CHINCHEFOLIADA); 
@@ -48,21 +50,82 @@ class MuestraTestCase {
 		when(op5.getValor()).thenReturn(Clasificacion.PHTIACHINCHE);
 		when(op6.getValor()).thenReturn(Clasificacion.POCOCLARA);
 		
+		// retornos de opiniones a getValor
+		when(op1.getUsuario()).thenReturn(ub1); when(op2.getUsuario()).thenReturn(ub2);
+		when(op3.getUsuario()).thenReturn(ub3); when(op4.getUsuario()).thenReturn(ue1);
+		when(op5.getUsuario()).thenReturn(ue2); when(op6.getUsuario()).thenReturn(ue3);
+		*/
+		
+		//retornos de ids de Usuario
+		when(ub1.getId()).thenReturn(01); when(ub2.getId()).thenReturn(02); 
+		when(ub3.getId()).thenReturn(03); when(ue1.getId()).thenReturn(04);
+		when(ue2.getId()).thenReturn(05); when(ue3.getId()).thenReturn(06);
+		
 		// retornos de usuarios para esExperto
 		when(ub1.esExperto()).thenReturn(false); when(ub2.esExperto()).thenReturn(false);
 		when(ub3.esExperto()).thenReturn(false); when(ue1.esExperto()).thenReturn(true);
 		when(ue2.esExperto()).thenReturn(true);  when(ue3.esExperto()).thenReturn(true);
 		
-		
-		m = new Muestra(dummyUbicacion, null, 0, null);
+		// la muestra se inicia con la opinion de ub1 y su opinion op1.
+		m = new Muestra(dummyUbicacion, ub1, "chinche.jpg", Clasificacion.CHINCHEFOLIADA);
 	}
 
-	@Test // sePuedeVerificar
-	void esVerificableDaFalsoPoqueNoHayUnaOpinionExpertaQueCoincida(){
-		m.agregarOpinion(op1); m.agregarOpinion(op2); m.agregarOpinion(op4); 
-		
-		assertEquals(false, m.sePuedeVerificar(Clasificacion.VINCHUCA));
+	@Test // addOpinion
+	void addOpinionAgregaLaOpinionALaMuestra(){
+		assertEquals(1, m.getOpiniones().size()); // comienza con 1 por la opinion del creador de la muestra
+		m.addOpinion(op1);
+		assertEquals(2, m.getOpiniones().size());
 	}
+	
+	@Test //agregarOpinion
+	void agregarOpinionDelegaASuEstadoYAgregaLaOpinion() {
+		assertEquals(1, m.getOpiniones().size());
+		m.agregarOpinion(op2);
+		assertEquals(2, m.getOpiniones().size());
+	}
+	
+	@Test //agregarOpinion
+	void agregarOpinionNoAgregaLaOpinionDeUsuarioQueYaOpino() {
+		assertEquals(1, m.getOpiniones().size());
+		m.agregarOpinion(op1);
+		assertEquals(1, m.getOpiniones().size());
+	}
+	
+	@Test //hayOpinionDe
+	void hayOpinionDe() {
+		assertTrue(m.hayOpinionDe(01));
+		assertFalse(m.hayOpinionDe(02));
+	}
+	
+	@Test //getResultado
+	void getResultadoDevuelvePHTIACHINCHE(){
+		assertEquals(Clasificacion.NINGUNA, m.getResultado());
+		m.agregarOpinion(op4); m.agregarOpinion(op5);
+		assertEquals(Clasificacion.PHTIACHINCHE, m.getResultado());
+	}
+	
+	
+	@Test //setResultado
+	void setResultadoLePasoVINCHUCA() {
+		assertEquals(Clasificacion.NINGUNA, m.getResultado());
+		m.setResultado(Clasificacion.VINCHUCA);
+		assertEquals(Clasificacion.VINCHUCA, m.getResultado());
+	}
+	
+	@Test //getUltimoResultado
+	void getUltimoResultadoDevuelvePOCOCLARA() {
+		m.agregarOpinion(op2); m.agregarOpinion(op6);
+		assertEquals(Clasificacion.POCOCLARA, m.getUltimoResultado());
+	}
+	
+	
+	
+	/*
+	@Test //agregarOpinion
+	void test() {
+		assertEquals(0, m.getOpiniones().size());
+	}
+	
 	
 	@Test // sePuedeVerificar
 	void esVerificableDaVerdaderoPoqueLaClasificacionTieneUnaCoincidencia(){
@@ -192,7 +255,7 @@ class MuestraTestCase {
 		
 		assertEquals(Clasificacion.PHTIACHINCHE, m.getResultadoActual());
 	}
-	
+	*/
 	
 	
 }
