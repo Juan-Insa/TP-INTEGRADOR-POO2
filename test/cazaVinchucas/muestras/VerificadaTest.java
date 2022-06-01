@@ -38,11 +38,11 @@ class VerificadaTest {
 		// retornos de usuarios para esExperto
         when(ue1.esExperto()).thenReturn(true); when(ue2.esExperto()).thenReturn(true); when(ue3.esExperto()).thenReturn(true);
 	
-		// la muestra se inicia con la opinion de ue1 y su opinion op1 con valor .
+		// la muestra se inicia con la opinion de ue1 y su opinion con valor PHTIACHINCHE.
 		m = new Muestra(dummyUbicacion, ue1, "PHTIACHINCHE.jpg", Clasificacion.PHTIACHINCHE);
 	}
 
-	@Test
+	@Test //getResultadoActual
 	void getResultadoActualDevuelvePHTIACHINCHE(){
 		// todavia no hay resultado.
 		assertEquals(Clasificacion.NINGUNA, v.getResultadoActual(m));
@@ -51,7 +51,7 @@ class VerificadaTest {
 		assertEquals(Clasificacion.PHTIACHINCHE, v.getResultadoActual(m));
 	}
 	
-	@Test
+	@Test //agregarOpinion
 	void agregarOpinionNoAgregaLaOpinion(){
 		// ahora queda verificada como PHTIACHINCHE.
 		m.setEstado(v);
@@ -60,6 +60,5 @@ class VerificadaTest {
 		
 		assertEquals(1, m.getOpiniones().size());
 	}
-	
 
 }

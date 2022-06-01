@@ -52,7 +52,7 @@ public class ConOpinionExperto extends EstadoMuestra {
      * @param c, es la nueva  clasificación a comparar con las actuales.
      * @param muestra, es la muestra a determinar si se verifica.
      */
-    private boolean sePuedeVerificar(Clasificacion c, Muestra muestra) {
+    boolean sePuedeVerificar(Clasificacion c, Muestra muestra) {
 		Stream<Clasificacion> clasifDeExpertos = muestra.getOpiniones().stream()
 				                                                       .filter(o -> o.getUsuario().esExperto())
 				                                                       .map(o -> o.getValor());
