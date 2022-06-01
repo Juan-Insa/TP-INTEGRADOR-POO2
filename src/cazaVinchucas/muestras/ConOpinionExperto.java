@@ -15,6 +15,9 @@ import cazaVinchucas.Opinion.Clasificacion;
  */
 public class ConOpinionExperto extends EstadoMuestra {
 	
+	//Siempre que haya mas de una opinion de un experto, habrá empate.
+	boolean hayEmpate = false;
+	
 	/**
 	 * Agrega la opinion a la muestra y le cambia el estado si corresponde.
 	 * Nota: Solo agregará la opinion si corresponde a un experto.
@@ -22,6 +25,7 @@ public class ConOpinionExperto extends EstadoMuestra {
 	@Override
 	void agregarOpinion(Opinion opinion, Muestra muestra) {
 		if(opinion.getUsuario().esExperto()) {
+			hayEmpate = true;
 			super.agregarOpinion(opinion, muestra);
 			this.chequearResultado(opinion, muestra);
 		}
@@ -56,8 +60,17 @@ public class ConOpinionExperto extends EstadoMuestra {
 	}
     
 	@Override
-	/*Nota: Inconcluso.*/
+	/**
+	 * Si solo ha opinado un experto, devuelve el resultado que este dió, si
+	 * no, necesariamente hay empate de opiniones y por lo tanto devuelve ninguna.
+	 * @param muestra, la muestra a obtener el resultado actual.
+	 * @return Una Clasificacion con el resultado actual según corresponde.
+	 */
 	Clasificacion getResultadoActual(Muestra muestra) {
+		//Se determina si hay empate. En tal caso, no hay resultado actual.
+		if (hayEmpate) {
+			return Clasificacion.NINGUNA;
+		}
 		return muestra.getUltimoResultado();
 	}
 
