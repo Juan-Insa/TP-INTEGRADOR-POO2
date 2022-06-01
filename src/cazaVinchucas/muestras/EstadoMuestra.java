@@ -1,5 +1,7 @@
 package cazaVinchucas.muestras;
 
+import java.util.stream.Stream;
+
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Opinion.Clasificacion;
 
@@ -17,7 +19,7 @@ public abstract class EstadoMuestra {
 	 * @param muestra, la muestra a agregar la opinión.
 	 */
 	void agregarOpinion(Opinion opinion, Muestra muestra) {
-			muestra.addOpinion(opinion);
+		muestra.addOpinion(opinion);
     }
 	
 	/**

@@ -64,12 +64,25 @@ public class Muestra {
     /**
      * Delega al estado de la muestra el proceso de agregar una nueva opinion.
      * @param opinion, es la opinion a agregar.
-     * Nota: acá se hace cambio de estado en el caso de que la opinion ingresada
-     * sea de experto, salvo que ya esté verificada la muestra.
      */
     public void agregarOpinion(Opinion opinion) {
-    	this.estado.agregarOpinion(opinion, this);
+    	int idOpinador = opinion.getUsuario().getId();
+    	if (!this.hayOpinionDe(idOpinador)) {
+    	    this.estado.agregarOpinion(opinion, this);
+    	}   
     }
+    
+	/**
+	 * indica si el usuario con id dado opinó en la muestra.
+	 * @param idOpinador, es el id a saber si opinó.
+	 * @param muestra, es la muestra a saber si tiene la opinion.
+	 * @return verdadero si hay una opinion con el id dado, falso de lo contrario 
+	 */
+	private boolean hayOpinionDe(int idOpinador) {
+		Stream<Integer> ids = this.getOpiniones().stream().map(o -> o.getUsuario().getId());
+ 		return ids.anyMatch(id -> id.equals(idOpinador));
+	}
+
 
 	/**
 	 * Devuelve la lista de opiniones de la muestra
