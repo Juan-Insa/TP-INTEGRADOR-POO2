@@ -32,10 +32,6 @@ class ConOpinionExpertoTest {
 		op3 = new Opinion(ue3, Clasificacion.VINCHUCA); 
 		op4 = new Opinion(ub1, Clasificacion.CHINCHEFOLIADA);
 		
-
-		//retornos de ids de Usuario
-		when(ue1.getId()).thenReturn(04); when(ue2.getId()).thenReturn(05); when(ue3.getId()).thenReturn(06);
-		
 		// retornos de usuarios para esExperto
         when(ue1.esExperto()).thenReturn(true); when(ue2.esExperto()).thenReturn(true); 
         when(ue3.esExperto()).thenReturn(true); when(ub1.esExperto()).thenReturn(false); 
@@ -45,23 +41,21 @@ class ConOpinionExpertoTest {
 	}
 
 	@Test //agregarOpinion
-	void agregarOpinionLaAgregaPorqueEsDeExpertoYLaMuestraNoEstaVerificada() {
-		assertEquals(1, m.getOpiniones().size());
+	void agregarOpinionLaAgregaPorqueEsDeExperto() {
 		opExperto.agregarOpinion(op2, m);
-		assertEquals(2, m.getOpiniones().size());
+		assertTrue(m.getOpiniones().contains(op2));
 	}
 	
 	@Test //agregarOpinion
 	void agregarOpinionNoLaAgregaPorSerDeUsuarioBasico() {
-		assertEquals(1, m.getOpiniones().size());
 		opExperto.agregarOpinion(op4, m);
-		assertEquals(1, m.getOpiniones().size());
+		assertFalse(m.getOpiniones().contains(op4));
 	}
 	
 	@Test //chequearResultado
 	void chequearResultadoVerificaLaMuestra() {
 		assertEquals(Clasificacion.NINGUNA, m.getResultado());
-		opExperto.agregarOpinion(op3, m); // queda verificada como VINCHUCA
+		opExperto.chequearResultado(op3, m); // queda verificada como VINCHUCA
 		assertEquals(Clasificacion.VINCHUCA, m.getResultado());
 	}
 	

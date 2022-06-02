@@ -44,8 +44,6 @@ class VerificadaTest {
 
 	@Test //getResultadoActual
 	void getResultadoActualDevuelvePHTIACHINCHE(){
-		// todavia no hay resultado.
-		assertEquals(Clasificacion.NINGUNA, v.getResultadoActual(m));
 		// ahora queda verificada como PHTIACHINCHE.
 		m.agregarOpinion(op2); 
 		assertEquals(Clasificacion.PHTIACHINCHE, v.getResultadoActual(m));
@@ -53,7 +51,6 @@ class VerificadaTest {
 	
 	@Test //agregarOpinion
 	void agregarOpinionNoAgregaLaOpinion(){
-		// ahora queda verificada como PHTIACHINCHE.
 		m.setEstado(v);
 		
 		v.agregarOpinion(op3, m);

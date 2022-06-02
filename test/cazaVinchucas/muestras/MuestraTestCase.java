@@ -16,7 +16,7 @@ import cazaVinchucas.Opinion.Clasificacion;
 
 class MuestraTestCase {
 	private Muestra m;                        // SUT
-	private Opinion op1, op2, op3, op4, op5, op6;  // DOC opiniones
+	private Opinion op1, op2, op3, op4, op5;  // DOC opiniones
 	private Usuario ub1, ub2, ub3, ue1, ue2, ue3;  // DOC usuarios (ub = usuario basico, ue = usuario experto)
 	private Ubicacion dummyUbicacion;     
 	
@@ -30,10 +30,9 @@ class MuestraTestCase {
 		
 		// opiniones
 		op2 = new Opinion(ub2, Clasificacion.VINCHUCA); 
-		op3 = new Opinion(ub3, Clasificacion.VINCHUCA); 
-		op4 = new Opinion(ue1, Clasificacion.PHTIACHINCHE);
-		op5 = new Opinion(ue2, Clasificacion.PHTIACHINCHE); 
-		op6 = new Opinion(ue3, Clasificacion.POCOCLARA); 
+		op3 = new Opinion(ue1, Clasificacion.PHTIACHINCHE);
+		op4 = new Opinion(ue2, Clasificacion.PHTIACHINCHE); 
+		op5 = new Opinion(ue3, Clasificacion.POCOCLARA); 
 		
 		//retornos de ids de Usuario
 		when(ub1.getId()).thenReturn(01); when(ub2.getId()).thenReturn(02); 
@@ -51,16 +50,14 @@ class MuestraTestCase {
 
 	@Test // addOpinion
 	void addOpinionAgregaLaOpinionALaMuestra(){
-		assertEquals(1, m.getOpiniones().size()); // comienza con 1 por la opinion del creador de la muestra
 		m.addOpinion(op1);
-		assertEquals(2, m.getOpiniones().size());
+		assertTrue(m.getOpiniones().contains(op1));
 	}
 	
 	@Test //agregarOpinion
 	void agregarOpinionDelegaASuEstadoYAgregaLaOpinion() {
-		assertEquals(1, m.getOpiniones().size());
 		m.agregarOpinion(op2);
-		assertEquals(2, m.getOpiniones().size());
+		assertTrue(m.getOpiniones().contains(op2));
 	}
 	
 	@Test //agregarOpinion
@@ -80,7 +77,7 @@ class MuestraTestCase {
 	@Test //getResultado
 	void getResultadoDevuelvePHTIACHINCHE(){
 		assertEquals(Clasificacion.NINGUNA, m.getResultado());
-		m.agregarOpinion(op4); m.agregarOpinion(op5);
+		m.agregarOpinion(op3); m.agregarOpinion(op4);
 		assertEquals(Clasificacion.PHTIACHINCHE, m.getResultado());
 	}
 	
@@ -94,20 +91,20 @@ class MuestraTestCase {
 	
 	@Test //getUltimoResultado
 	void getUltimoResultadoDevuelvePOCOCLARA() {
-		m.agregarOpinion(op2); m.agregarOpinion(op6);
+		m.agregarOpinion(op2); m.agregarOpinion(op5);
 		assertEquals(Clasificacion.POCOCLARA, m.getUltimoResultado());
 	}
 	
 	@Test //agregarOpinion
 	void getOpiniones() {
-		m.agregarOpinion(op2); m.agregarOpinion(op4);
+		m.agregarOpinion(op2); m.agregarOpinion(op3);
 		ArrayList<Opinion> mismasOpiniones = new ArrayList<Opinion>();
 		mismasOpiniones.add(m.getOpiniones().get(0));
 		mismasOpiniones.add(op2);
 		
 		assertFalse(mismasOpiniones.containsAll(m.getOpiniones())); //faltaria op4
 		
-		mismasOpiniones.add(op4); // se agrega op4
+		mismasOpiniones.add(op3); // se agrega op4
 		
 		assertTrue(mismasOpiniones.containsAll(m.getOpiniones())); // son iguales
 		
