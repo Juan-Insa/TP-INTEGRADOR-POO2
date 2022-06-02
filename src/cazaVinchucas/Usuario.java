@@ -14,12 +14,19 @@ public class Usuario {
 	 */
 	private int id;
 	Categoria categoria;
+	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
 	 * Con id.
+	 * Con esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
 	 */
-	public Usuario(int id) {
+	public Usuario(int id, boolean esEspecialista) {
 		this.setId(id);
+		if(esEspecialista) {
+			categoria = new Especialista();
+		} else {
+			categoria = new Basico();
+		}
 	}
 
 	/**
@@ -35,6 +42,14 @@ public class Usuario {
 	 */
 	void setId(int id) {
 		this.id = id;
+	}
+	
+	/**
+	 * Devuelve un booleano que indica si es usuario experto.
+	 * @return
+	 */
+	public boolean esExperto() {
+		return categoria.esExperto();
 	}
 	
 	/**
@@ -54,7 +69,7 @@ public class Usuario {
 	 * @param muestra es la muestra sobre la que opina el usuario
 	 */
 	public void opinar(Clasificacion especie, Muestra muestra) {
-		unaOpinion = new Opinion(this, especie);
+		Opinion unaOpinion = new Opinion(this, especie);
 		muestra.agregarOpinion(unaOpinion);
 	}
 	
@@ -62,6 +77,21 @@ public class Usuario {
 	 * Actualiza la categoria de un usuario del sistema
 	 */
 	public void recategorizar() {
-		this.categoria.setCategoria();
+		this.categoria.recategorizar();
 	}
+	/**
+	 * Devuelve la categoria del usuario.
+	 * @return
+	 */
+	Categoria getCategoria() {
+		return this.categoria;
+	}
+    /**
+     * Establece un cambio de la categoria del usuario.
+     * @param nuevaCategoria es la categoria a la que cambia el usuario.
+     */
+	void setCategoria(Categoria nuevaCategoria) {
+		this.categoria = nuevaCategoria;
+	}
+
 }
