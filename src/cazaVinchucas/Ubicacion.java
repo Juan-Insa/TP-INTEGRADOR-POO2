@@ -13,8 +13,9 @@ public class Ubicacion {
 	/**
 	 * Constructor de Ubicación.
 	 * 
-	 * Precondición: Los grados deben ser expresados como grados decimales
-	 * y deben ser grados validos para valores de latitudes y longitudes.
+	 * Precondición: Los grados deben ser validos para valores de latitudes (min -90°/max 90°)
+	 * y longitudes (min -180°/max 180°).
+	 * Ademas, los grados deben ser expresados como grados decimales.
 	 * Si 30°11'50" entonces se debe expresar como 30.1972.
 	 * obtenido del calculo:
 	 * g+(m/60)+(s/3600)
@@ -24,9 +25,15 @@ public class Ubicacion {
 	 * @param lon la longitud de la ubicación dada expresada como un double.  
 	 */
 	public Ubicacion (double lat, double lon) throws Exception {
-		if(!this.esLatitudValida(lat) || !this.esLongitudValida(lon)) {
-			throw new Exception ("Latitud o longitud invalida.");
+		//Errores
+		if(!this.esLatitudValida(lat)) {
+			throw new Exception ("Latitud invalida.");
 		}
+		if(!this.esLongitudValida(lon)) {
+			throw new Exception ("Longitud invalida.");
+		}
+		
+		//Constructor valido
 		latitud = lat;
 		longitud = lon;
 	}
@@ -49,10 +56,18 @@ public class Ubicacion {
 		return -90d <= lat && lat <= 90d;
 	}
 
+	/**
+	 * Describe la latitud de esta ubicación.
+	 * @return Un double con la latitud en grados decimales de esta ubicación.
+	 */
 	public double getLatitud() {
 		return latitud;
 	}
 
+	/**
+	 * Describe la longitud de esta ubicación.
+	 * @return Un double con la longitud en grados decimales de esta ubicación.
+	 */
 	public double getLongitud() {
 		return longitud;
 	}
