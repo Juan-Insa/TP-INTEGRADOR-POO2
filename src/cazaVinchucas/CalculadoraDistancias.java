@@ -10,6 +10,11 @@ package cazaVinchucas;
  */
 public class CalculadoraDistancias {
 
+	/**
+	 * Valor por default del radio de tierra.
+	 * Se puede setear a otros valores validos con
+	 * setRadioTierra(radio).
+	 */
 	private static double radioTierra = 6371;
 	
 	private CalculadoraDistancias() {
@@ -60,11 +65,31 @@ public class CalculadoraDistancias {
 		return CalculadoraDistancias.distanciaCoord(ub1.getLatitud(), ub1.getLongitud(), ub2.getLatitud(), ub2.getLongitud());
 	}
 	
-	public static void setRadioTierra(double r) {
+	/**
+	 * Se puede especificar otros radios de la tierra, si se desea mas exactitud para ciertas ubicaciones especificas.
+	 * Si los puntos tienden a los meridianos (longitudes similares) utilizar el radio polar (6378km), si tienden a los 
+	 * paralelos (latitudes similares) utilizar el radio ecuatorial (6371km).
+	 * @param r es un double que representa un radio valido para la tierra (valor entre 6371d y 6378d.
+	 * @throws Exception 
+	 */
+	public static void setRadioTierra(double r) throws Exception {
+		if (r < 6371d || 6378d < r) {
+			throw new Exception ("Radio invalido para la tierra.");
+		}
 		radioTierra = r;
 	}
 	
-	public static void setDefaultRadioTierra(double r) {
+	/**
+	 * Cambia el valor del radio de calculo actual al valor del radio ecuatorial de la tierra.
+	 */
+	public static void setRadioEcuatorialTierra() {
 		radioTierra = 6371;
+	}
+
+	/**
+	 * Cambia el valor del radio de calculo actual al valor del radio polar de la tierra.
+	 */
+	public static void setRadioPolarTierra() {
+		radioTierra = 6378;
 	}
 }
