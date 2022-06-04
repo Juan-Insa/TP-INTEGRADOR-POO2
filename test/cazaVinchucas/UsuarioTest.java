@@ -52,12 +52,6 @@ class UsuarioTest {
 		assertEquals(true, uses3.esExperto());
 	}
 	@Test
-	void testEsEspecialista() {
-		assertEquals(false, usba1.categoria.esEspecialista());
-		assertEquals(false, usex2.categoria.esEspecialista());
-		assertEquals(true, uses3.categoria.esEspecialista());
-	}
-	@Test
 	void testGetCategoria() { // No funciona bien porque son distintas instancias
 		assertEquals(catus, usba1.getCategoria());
 		assertEquals(catex, usex2.getCategoria());

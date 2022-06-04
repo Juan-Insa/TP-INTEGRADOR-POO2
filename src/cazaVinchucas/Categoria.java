@@ -9,10 +9,5 @@ public abstract class Categoria {
 	/**
 	 * Actualiza la categoria del usuario
 	 */
-	public abstract void recategorizar();
-	/**
-	 * Devuelve un booleano que indica si es usuario especialista.
-	 * @return
-	 */
-	public abstract boolean esEspecialista();
+	public abstract void recategorizar(););
 }

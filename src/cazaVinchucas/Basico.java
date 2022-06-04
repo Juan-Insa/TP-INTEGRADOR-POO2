@@ -1,21 +1,11 @@
 package cazaVinchucas;
 
 public class Basico extends Categoria {
-
-	public Basico() {
-	}
 	/**
 	 * Devuelve un booleano que indica si es usuario experto.
 	 * @return
 	 */
 	public boolean esExperto() {
-		return false;
-	}
-	/**
-	 * Devuelve un booleano que indica si es usuario especialista.
-	 * @return
-	 */
-	public boolean esEspecialista() {
 		return false;
 	}
 	/**
