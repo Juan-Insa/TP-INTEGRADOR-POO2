@@ -1,4 +1,4 @@
-package cazaVinchucas;
+package cazaVinchucas.Categoria;
 
 /**
  * Clase que modela la categoria del usuario del sistema.

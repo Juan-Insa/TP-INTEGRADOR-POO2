@@ -1,5 +1,9 @@
 package cazaVinchucas;
 
+import cazaVinchucas.Categoria.Basico;
+import cazaVinchucas.Categoria.Categoria;
+import cazaVinchucas.Categoria.Especialista;
+
 /**
  * Clase que modela el usuario del sistema.
  * 

@@ -1,4 +1,12 @@
-package cazaVinchucas;
+package cazaVinchucas.Categoria;
+
+/**
+ * Clase encargada de representar el comportamiento particular de una 
+ * categoria de usuario especialista.
+ * 
+ * @author ivanapr
+ *
+ */
 
 public class Especialista extends Categoria {
 	/**

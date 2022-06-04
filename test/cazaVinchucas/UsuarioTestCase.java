@@ -5,9 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cazaVinchucas.Categoria.Basico;
+import cazaVinchucas.Categoria.Especialista;
+import cazaVinchucas.Categoria.Experto;
+
 import static org.mockito.Mockito.*;
 
-class UsuarioTest {
+class UsuarioTestCase {
 
 	Usuario usba1, usex2, uses3; // SUT (usba = usuario basico, usex = usuario experto, uses = usuario especialista)
 	Basico catus;
