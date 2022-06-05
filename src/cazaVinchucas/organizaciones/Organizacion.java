@@ -1,5 +1,6 @@
 package cazaVinchucas.organizaciones;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cazaVinchucas.muestras.Muestra;
@@ -8,15 +9,37 @@ public class Organizacion implements OrganizacionObserver{
 	private String tipo;
 	private int cantidadEmpleados;
 	private List<ZonaDeCobertura> zonasCubiertas;
-	private FuncionalidadExterna funcionalidadNueva;
-	private FuncionalidadExterna funcionalidadVerificada;
-    
+	private FuncionalidadExterna eventoNuevo;
+	private FuncionalidadExterna eventoVerificado;
+	
 	/**
-	 * activa el evento de la funcionalidad externa
+	 * constructor de Organización
+	 * @param tipo, es el tipo de organización
+	 * @param cantidadEmpleados, la cant de empleados que trabaja en la organización.
+	 * @param eventoNuevo, la funcionalidad externa cuando hay nueva muestra.
+	 * @param eventoVerificado, la funcionalidad externa cuando hay muestra verificada.
+	 */
+	public Organizacion(String tipo, int cantidadEmpleados, FuncionalidadExterna eventoNuevo, 
+			FuncionalidadExterna eventoVerificado) {
+		this.tipo = tipo;
+		this.cantidadEmpleados = cantidadEmpleados;
+		this.zonasCubiertas = new ArrayList<ZonaDeCobertura>();
+		this.eventoNuevo = eventoNuevo;
+		this.eventoVerificado = eventoVerificado;
+	}
+
+	/**
+	 * activa el evento de la funcionalidad externa.
+	 * @param zona, es la zona que notificó la muestra.
+	 * @param muestra,  
 	 */
 	@Override
 	public void activarEvento(ZonaDeCobertura zona, Muestra muestra) {
-		
+		if (muestra.esVerificada()) {
+			this.eventoVerificado.nuevoEvento(this, zona, muestra);
+		} else {
+			this.eventoNuevo.nuevoEvento(this, zona, muestra);
+		}
 	}
 	
 	/**
@@ -25,6 +48,7 @@ public class Organizacion implements OrganizacionObserver{
 	 */
 	void registrar(ZonaDeCobertura zona) {
 		this.zonasCubiertas.add(zona);
+		zona.registrar(this);
 	}
 	
 	/**
@@ -33,6 +57,7 @@ public class Organizacion implements OrganizacionObserver{
 	 */
 	void desRegistrar(ZonaDeCobertura zona) {
 		this.zonasCubiertas.remove(zona);
+		zona.desRegistrar(this);
 	}
 	
 	/**
@@ -55,16 +80,16 @@ public class Organizacion implements OrganizacionObserver{
 	 * establece la funcionalidadExterna para las nuevas muestras.
 	 * @param fNueva, la funcionalidad externa a establecer.
 	 */
-	void setNuevaMuestra(FuncionalidadExterna fNueva) {
-		this.funcionalidadNueva = fNueva;
+	void setEventoNuevaMuestra(FuncionalidadExterna fNueva) {
+		this.eventoNuevo = fNueva;
 	}
 
 	/**
 	 * establece la funcionalidadExterna para las muestras verificadas.
 	 * @param fVerificada, la funcionalidad externa a establecer.
 	 */
-	void setMuestraValidada(FuncionalidadExterna fVerificada) {
-		this.funcionalidadVerificada = fVerificada;
+	void setEventoMuestraValidada(FuncionalidadExterna fVerificada) {
+		this.eventoVerificado = fVerificada;
 	}
 
 }

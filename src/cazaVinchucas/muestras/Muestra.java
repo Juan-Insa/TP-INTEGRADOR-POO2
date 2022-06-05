@@ -127,4 +127,12 @@ public class Muestra {
 		return opiniones.get(opiniones.size()-1).getValor();
 	}
 
+	/**
+	 * indica si la muestra esta verificada.
+	 * @return, verdadero si la muestra está verificada, falso de lo contrario.
+	 */
+	public boolean esVerificada() {
+		return resultado != Clasificacion.NINGUNA ;
+	}
+
 }
