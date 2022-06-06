@@ -92,4 +92,14 @@ public class Organizacion implements OrganizacionObserver{
 		this.eventoVerificado = fVerificada;
 	}
 
+	/**
+	 * devuelve las zonas cubiertas por la organización.
+	 * @return
+	 */
+	List<ZonaDeCobertura> getZonasCubiertas() {
+		return zonasCubiertas;
+	}
+	
+	
+
 }
