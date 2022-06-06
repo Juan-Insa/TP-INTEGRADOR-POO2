@@ -1,5 +1,8 @@
 package cazaVinchucas.Categoria;
 
+import cazaVinchucas.Sistema;
+import cazaVinchucas.Usuario;
+
 /**
  * Clase encargada de representar el comportamiento particular de una 
  * categoria de usuario especialista.
@@ -19,8 +22,10 @@ public class Especialista extends Categoria {
 	}
 	/**
 	 * Actualiza la categoria del usuario
+	 * @param sistema es el sistema donde esta el usuario
+	 * @param usuario es el usuario actual
 	 */
-	public void recategorizar() {
+	public void recategorizar(Sistema sistema, Usuario usuario) {
 		// No cambia su categoria porque el usuario especialista es siempre especialista
 	}
 

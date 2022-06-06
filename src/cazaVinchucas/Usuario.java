@@ -17,12 +17,14 @@ public class Usuario {
 	 * Un id para identificar al usuario.
 	 */
 	private int id;
-	Categoria categoria;
+	private Categoria categoria;
+	Sistema sistema;
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
-	 * Con id.
-	 * Con esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
+	 * Un participante nuevo posee nivel básico excepto que se indique que es especialista.
+	 * @param id.
+	 * @param esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
 	 */
 	public Usuario(int id, boolean esEspecialista) {
 		this.setId(id);
@@ -43,6 +45,7 @@ public class Usuario {
 
 	/**
 	 * Modifica el id del usuario.
+	 * @param id
 	 */
 	void setId(int id) {
 		this.id = id;
@@ -64,7 +67,7 @@ public class Usuario {
 	 */
 	public void enviarMuestra(Ubicacion ubicacion, String foto, Clasificacion especie) {
 		Muestra muestra = new Muestra(ubicacion, this, foto, especie);
-		Sistema.agregar(muestra);
+		sistema.agregarMuestra(muestra);
 	}
 	
 	/**
@@ -79,22 +82,24 @@ public class Usuario {
 	
 	/**
 	 * Actualiza la categoria de un usuario del sistema
+	 * @param sistema es el sistema donde esta el usuario
+	 * @param usuario es el usuario actual
 	 */
-	public void recategorizar() {
-		this.categoria.recategorizar();
+	public void recategorizar(Sistema sistema, Usuario usuario) {
+		this.categoria.recategorizar(sistema, usuario);
 	}
 	/**
 	 * Devuelve la categoria del usuario.
 	 * @return
 	 */
-	Categoria getCategoria() {
+	public Categoria getCategoria() {
 		return this.categoria;
 	}
     /**
      * Establece un cambio de la categoria del usuario.
      * @param nuevaCategoria es la categoria a la que cambia el usuario.
      */
-	void setCategoria(Categoria nuevaCategoria) {
+	public void setCategoria(Categoria nuevaCategoria) {
 		this.categoria = nuevaCategoria;
 	}
 
