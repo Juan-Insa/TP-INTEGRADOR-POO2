@@ -68,6 +68,10 @@ class SinOpinionExpertoTest {
 		assertEquals(Clasificacion.VINCHUCA, noExperto.getResultadoActual(m));  
 	}
 	
-	
+	@Test //getResultadoActualSiHayEmpate
+	void getResultadoActualDevuelveNINGUNAPorSerEmpate() {
+		noExperto.agregarOpinion(op2, m);                         
+		assertEquals(Clasificacion.NINGUNA, noExperto.getResultadoActual(m));  
+	}
 
 }

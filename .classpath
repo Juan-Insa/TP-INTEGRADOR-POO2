@@ -8,10 +8,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="E:/Mis imagenes/Fuckultad/Objetos II/Mockito Framework/byte-buddy-1.10.18.jar"/>
-	<classpathentry kind="lib" path="E:/Mis imagenes/Fuckultad/Objetos II/Mockito Framework/byte-buddy-agent-1.10.15.jar"/>
-	<classpathentry kind="lib" path="E:/Mis imagenes/Fuckultad/Objetos II/Mockito Framework/mockito-core-3.6.0.jar"/>
-	<classpathentry kind="lib" path="E:/Mis imagenes/Fuckultad/Objetos II/Mockito Framework/mockito-inline-3.6.0.jar"/>
-	<classpathentry kind="lib" path="E:/Mis imagenes/Fuckultad/Objetos II/Mockito Framework/objenesis-3.1.jar"/>
+	<classpathentry kind="lib" path="/home/fercho/Documentos/Repositorios/MockitoSources/byte-buddy-1.10.18.jar"/>
+	<classpathentry kind="lib" path="/home/fercho/Documentos/Repositorios/MockitoSources/byte-buddy-agent-1.10.15.jar"/>
+	<classpathentry kind="lib" path="/home/fercho/Documentos/Repositorios/MockitoSources/mockito-core-3.6.0.jar"/>
+	<classpathentry kind="lib" path="/home/fercho/Documentos/Repositorios/MockitoSources/objenesis-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
