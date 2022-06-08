@@ -5,22 +5,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cazaVinchucas.Sistema;
-import cazaVinchucas.Usuario;
-
 class ExpertoTestCase {
 
-	private Sistema s;
-	private Usuario us1;
-
+	private Categoria cat; // SUT
+	
 	@BeforeEach
 	void setUp() throws Exception {
-		us1 = new Usuario(123, false);
+		cat = new Experto();
 	}
 	@Test
 	void expertoEsExperto() {
-		us1.setCategoria(new Experto());
-		assertEquals(true, us1.esExperto());
+		assertEquals(true, cat.esExperto()); //Verify
 	}
 
 }
