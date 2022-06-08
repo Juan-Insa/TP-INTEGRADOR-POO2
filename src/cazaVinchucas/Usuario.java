@@ -1,7 +1,7 @@
 package cazaVinchucas;
 
 import cazaVinchucas.Opinion.Clasificacion;
-import cazaVinchuzas.muestras.Muestra;
+import cazaVinchucas.muestras.Muestra;
 import cazaVinchucas.Categoria.Basico;
 import cazaVinchucas.Categoria.Categoria;
 import cazaVinchucas.Categoria.Especialista;
@@ -20,7 +20,7 @@ public class Usuario {
 	 */
 	private int id;
 	private Categoria categoria;
-	Sistema sistema;
+	private Sistema sistema;
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
@@ -85,7 +85,6 @@ public class Usuario {
 	/**
 	 * Actualiza la categoria de un usuario del sistema
 	 * @param sistema es el sistema donde esta el usuario
-	 * @param usuario es el usuario actual
 	 */
 	public void recategorizar(Sistema sistema) {
 		this.categoria.recategorizar(sistema, this);
