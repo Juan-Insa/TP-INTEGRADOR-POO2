@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cazaVinchucas.Opinion.Clasificacion;
 import cazaVinchucas.Categoria.Basico;
 import cazaVinchucas.Categoria.Especialista;
 import cazaVinchucas.Categoria.Experto;
@@ -17,17 +18,13 @@ class UsuarioTestCase {
 	Basico catus;
 	Experto catex;
 	Especialista cates; // DOC (catus = categoria basico, catex = categoria experto, cates = categoria especialista)
-	Sistema sist; // DOC dummy
-	//Ubicacion ubi1, ubi2, ubi3; // DOC dummy
-	Clasificacion clas1, clas2, clas3; // DOC
-	Muestra m;
+	Sistema sist; // DOC
+	Ubicacion dummyUbicacion;
+	Clasificacion dummyClasificacion;
+	String dummyFoto;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		//ubi1 = mock(Ubicacion.class);
-		//ubi2 = mock(Ubicacion.class);
-		//ubi3 = mock(Ubicacion.class);
-		//m = mock(Muestra.class);
 		usba1 = new Usuario(1, false);
 		usex2 = new Usuario(2, false);
 		uses3 = new Usuario(3, true);
@@ -35,7 +32,6 @@ class UsuarioTestCase {
 		catex = new Experto();
 		cates = new Especialista();
 		usex2.setCategoria(catex);
-		
 	}
 	
 	@Test
@@ -56,10 +52,10 @@ class UsuarioTestCase {
 		assertEquals(true, uses3.esExperto());
 	}
 	@Test
-	void testGetCategoria() { // No funciona bien porque son distintas instancias
-		assertEquals(catus, usba1.getCategoria());
-		assertEquals(catex, usex2.getCategoria());
-		assertEquals(cates, uses3.getCategoria());
+	void testRecategorizarABasico() {
+		usex2.enviarMuestra(dummyUbicacion, dummyFoto, dummyClasificacion);
+		usex2.recategorizar(sist);
+		assertEquals(false, usex2.esExperto());
 	}
 
 }

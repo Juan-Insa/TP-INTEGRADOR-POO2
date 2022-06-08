@@ -1,5 +1,7 @@
 package cazaVinchucas;
 
+import cazaVinchucas.Opinion.Clasificacion;
+import cazaVinchuzas.muestras.Muestra;
 import cazaVinchucas.Categoria.Basico;
 import cazaVinchucas.Categoria.Categoria;
 import cazaVinchucas.Categoria.Especialista;
@@ -39,7 +41,7 @@ public class Usuario {
 	 * Devuelve el id del usuario.
 	 * @return
 	 */
-	int getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -85,15 +87,8 @@ public class Usuario {
 	 * @param sistema es el sistema donde esta el usuario
 	 * @param usuario es el usuario actual
 	 */
-	public void recategorizar(Sistema sistema, Usuario usuario) {
-		this.categoria.recategorizar(sistema, usuario);
-	}
-	/**
-	 * Devuelve la categoria del usuario.
-	 * @return
-	 */
-	public Categoria getCategoria() {
-		return this.categoria;
+	public void recategorizar(Sistema sistema) {
+		this.categoria.recategorizar(sistema, this);
 	}
     /**
      * Establece un cambio de la categoria del usuario.
