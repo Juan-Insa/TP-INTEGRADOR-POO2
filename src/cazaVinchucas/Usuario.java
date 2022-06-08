@@ -24,7 +24,7 @@ public class Usuario {
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
-	 * Un participante nuevo posee nivel básico excepto que se indique que es especialista.
+	 * Un participante nuevo posee nivel bï¿½sico excepto que se indique que es especialista.
 	 * @param id.
 	 * @param esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
 	 */
@@ -96,5 +96,4 @@ public class Usuario {
 	public void setCategoria(Categoria nuevaCategoria) {
 		this.categoria = nuevaCategoria;
 	}
-
 }
