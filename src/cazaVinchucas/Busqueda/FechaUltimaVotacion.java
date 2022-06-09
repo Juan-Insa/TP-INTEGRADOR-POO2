@@ -2,6 +2,7 @@ package cazaVinchucas.Busqueda;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cazaVinchucas.muestras.Muestra;
 
@@ -14,13 +15,17 @@ import cazaVinchucas.muestras.Muestra;
 public class FechaUltimaVotacion implements BusquedaComponent {
 
 	private LocalDate fecha;
-	public FechaUltimaVotacion(LocalDate fecha) {
+	private Criterio criterio;
+	public FechaUltimaVotacion(LocalDate fecha, Criterio criterio) {
 		this.fecha = fecha;
+		this.criterio = criterio;
 	}
 	@Override
 	public List<Muestra> filtradas(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Muestra> buscadas = muestras.stream().map(m -> {
+			m.getOpiniones().stream().filter(o -> criterio.esValido(o.getFecha(),fecha));})
+				.collect(Collectors.toList());
+		return buscadas;
 	}
 
 }
