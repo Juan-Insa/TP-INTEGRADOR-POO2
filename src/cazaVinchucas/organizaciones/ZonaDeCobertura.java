@@ -14,12 +14,14 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
     private Ubicacion epicentro;
     private String nombre;
     private double radio;
+    private List<ZonaDeCobertura> zonasSolapadas;
     
     /**
      * Constructor de una Zona de Cobertura nueva.
      * Precondición: Al momento de crear la zona dada no existen muestras
-     * previas en la zona dada, o de existir deben ser notificadas. Si no
-     * se desea tener que verificar las zonas, usar el otro constructor.
+     * previas en la zona dada ni zonas de cobertura solapadas, o de existir 
+     * deben ser notificadas tras construirse. 
+     * Si no se desea tener que verificar las zonas o muestras, usar el otro constructor.
      * @param e la ubicacion del epicentro de la zona a construir.
      * @param n el nombre de la zona a construir.
      * @param r el radio de la zona a construir.
@@ -30,24 +32,24 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
     	radio = r;
     	organizaciones = new ArrayList<OrganizacionObserver>();
     	muestrasConocidas = new ArrayList<Muestra>();
+    	zonasSolapadas = new ArrayList<ZonaDeCobertura>();
     }
     
     /**
      * Constructor de una Zona de Cobertura nueva.
      * Precondición: La lista de muestras dada se corresponde a todas las
-     * muestras en el sistema al momento de construir la Zona de cobertura.
+     * muestras en el sistema y la lista de zonas de cobertura debe corresponder 
+     * a todas las zonas de cobertura en el sistema al momento al momento de 
+     * construir esta Zona de cobertura. 
      * @param e la ubicacion del epicentro de la zona a construir.
      * @param n el nombre de la zona a construir.
      * @param r el radio de la zona a construir.
      * @param muestrasViejas
      */
-    public ZonaDeCobertura(Ubicacion e, String n, double r, List<Muestra> muestrasViejas) {
-    	epicentro = e;
-    	nombre = n;
-    	radio = r;
-    	organizaciones = new ArrayList<OrganizacionObserver>();
-    	muestrasConocidas = new ArrayList<Muestra>();
+    public ZonaDeCobertura(Ubicacion e, String n, double r, List<ZonaDeCobertura> zonasViejas, List<Muestra> muestrasViejas) {
+    	this(e,n,r);
     	muestrasViejas.forEach(m -> this.updateMuestraNueva(m));
+    	zonasViejas.forEach(z -> this.updateZonaNueva(z));
     }
     
     /**
@@ -102,14 +104,20 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      * Si se encuentra dentro del radio, la agrega. Si no, la desestima.
      * @param m una muestra nueva.
      */
+    @Override
     public void updateMuestraNueva(Muestra m) {
-    	if(CalculadoraDeDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion()){
+    	/*if(CalculadoraDeDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion()){
     		this.ingresarMuestra(m);
-    	}
+    	}*/
     }
-    
+
+	@Override
+	public void updateMuestraValidada(Muestra m) {
+		//PENDIENTE
+	}
+
     /**
-     * ingresa una muestra a la zona de cobertura y notifica a las organizaciones
+     * Ingresa una muestra a la zona de cobertura y notifica a las organizaciones
      * registradas.
      * Precondición: Se verificó que la muestra dada esta en la zona de cobertura.
      * @param muestra, es la muestra a registrar y notificar
@@ -120,7 +128,7 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
     }
 
     /**
-     * envía una notificación a todas las organizaciónes registradas sobre el ingreso
+     * Envía una notificación a todas las organizaciónes registradas sobre el ingreso
      * o validación de una muestra de la zona. 
      * @param zona, es la zonaDeCobertura misma.
      * @param muestra, es la muestra que ingresó o se validó.
@@ -130,5 +138,27 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
 		for (OrganizacionObserver organizacion : organizaciones) {
 			organizacion.activarEvento(zona, muestra);
 		}
+	}
+
+    /**
+     * Recibe notificación de que hay una nueva zona de cobertura.
+     * Verifica que esta se encuentra dentro de su radio de cobertura.
+     * Si se encuentra dentro del radio, la agrega. Si no, la desestima.
+     * @param z una ZonaDeCobertura nueva.
+     */
+	@Override
+	public void updateZonaNueva(ZonaDeCobertura z) {
+		/*if(CalculadoraDeDistancias.estanRadiosSuperpuestos(radio, epicentro, z.getRadio(), z.getEpicentro()){
+			this.addZonaSolapada(z);
+		}*/
+	}
+	
+	/**
+	 * Agrega la zona dada a la lista de zonas solapadas.
+	 * Precondición: La zona dada DEBE estar solapada a esta.
+	 * @param z una ZonaDeCobertura que esta solapada a esta.
+	 */
+	private void addZonaSolapada(ZonaDeCobertura z) {
+		zonasSolapadas.add(z);
 	}
 }
