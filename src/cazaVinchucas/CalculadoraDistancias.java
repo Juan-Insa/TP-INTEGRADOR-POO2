@@ -92,4 +92,15 @@ public class CalculadoraDistancias {
 	public static void setRadioPolarTierra() {
 		radioTierra = 6378;
 	}
+
+	public static boolean estanRadiosSuperpuestos(double radio, Ubicacion epicentro, double radio2,
+			Ubicacion epicentro2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public static boolean estanDentroDelRadio(double radio, Ubicacion epicentro, Ubicacion ubicacion) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

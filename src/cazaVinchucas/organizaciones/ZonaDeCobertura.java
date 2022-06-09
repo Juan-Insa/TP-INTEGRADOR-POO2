@@ -3,9 +3,9 @@ package cazaVinchucas.organizaciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import cazaVinchucas.CalculadoraDistancias;
 import cazaVinchucas.Ubicacion;
 import cazaVinchucas.muestras.Muestra;
-import cazaVinchucas.organizaciones.ZonaDeCobertura.ZonaObserver;
 
 public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
 	
@@ -106,14 +106,16 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      */
     @Override
     public void updateMuestraNueva(Muestra m) {
-    	/*if(CalculadoraDeDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion()){
+    	if(CalculadoraDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion())){
     		this.ingresarMuestra(m);
-    	}*/
+    	}
     }
 
 	@Override
 	public void updateMuestraValidada(Muestra m) {
-		//PENDIENTE
+    	if(CalculadoraDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion())){
+    		this.notificar(m);
+    	}
 	}
 
     /**
@@ -124,7 +126,7 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      */
     private void ingresarMuestra(Muestra muestra) {
     	this.muestrasConocidas.add(muestra);
-    	this.notificar(this, muestra);
+    	this.notificar(muestra);
     }
 
     /**
@@ -134,9 +136,9 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      * @param muestra, es la muestra que ingresó o se validó.
      */
     @Override
-	public void notificar(ZonaDeCobertura zona, Muestra muestra) {
+	public void notificar(Muestra muestra) {
 		for (OrganizacionObserver organizacion : organizaciones) {
-			organizacion.activarEvento(zona, muestra);
+			organizacion.activarEvento(this, muestra);
 		}
 	}
 
@@ -148,9 +150,9 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      */
 	@Override
 	public void updateZonaNueva(ZonaDeCobertura z) {
-		/*if(CalculadoraDeDistancias.estanRadiosSuperpuestos(radio, epicentro, z.getRadio(), z.getEpicentro()){
+		if(CalculadoraDistancias.estanRadiosSuperpuestos(radio, epicentro, z.getRadio(), z.getEpicentro())){
 			this.addZonaSolapada(z);
-		}*/
+		}
 	}
 	
 	/**

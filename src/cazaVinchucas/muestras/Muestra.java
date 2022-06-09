@@ -54,6 +54,14 @@ public class Muestra {
 	}
     
     /**
+     * Getter ubicacion
+     * @return Devuelve la ubicacion de la muestra.
+     */
+    public Ubicacion getUbicacion() {
+    	return ubicacion;
+    }
+    
+    /**
      * Agrega una opinion a la lista de opiniones.
      * @param opinion, es la opinion a agregar a la lista.
      */
