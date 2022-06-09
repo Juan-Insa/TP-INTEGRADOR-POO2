@@ -62,6 +62,22 @@ public class Muestra {
     }
     
     /**
+     * Getter id
+     * @return Devuelve un int correspondiente al id del usuario que subio la muestra.
+     */
+    public int getId() {
+    	return id;
+    }
+    
+    /**
+     * Getter foto
+     * @return Devuelve un String correspondiente a la codificación de la foto de la muestra.
+     */
+    public String getFoto() {
+    	return foto;
+    }
+    
+    /**
      * Agrega una opinion a la lista de opiniones.
      * @param opinion, es la opinion a agregar a la lista.
      */
