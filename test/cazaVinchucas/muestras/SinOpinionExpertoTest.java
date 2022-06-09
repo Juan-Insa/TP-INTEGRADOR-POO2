@@ -15,9 +15,9 @@ import cazaVinchucas.Opinion.Clasificacion;
 class SinOpinionExpertoTest {
 	private Muestra m; 
 	private Ubicacion dummyUbicacion; 
-	private Opinion op1, op2, op3, op4;
-	private Usuario ub1, ub2, ub3, ub4, ue1;  // DOC usuarios (ub = usuario basico, ue = usuario experto)
-	private SinOpinionExperto noExperto; // SUT
+	private Opinion op1, op2, op3, op4;      // DOC opiniones
+	private Usuario ub1, ub2, ub3, ub4, ue1; // DOC usuarios (ub = usuario basico, ue = usuario experto)
+	private SinOpinionExperto noExperto;     // SUT
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -27,11 +27,18 @@ class SinOpinionExpertoTest {
 		ub1 = mock(Usuario.class); ub2 = mock(Usuario.class); ub3 = mock(Usuario.class); ue1 = mock(Usuario.class); 
 		ub4 = mock(Usuario.class);
 		
-		// opiniones
-		op4 = new Opinion(ub4, Clasificacion.VINCHUCA);
-		op2 = new Opinion(ub2, Clasificacion.CHINCHEFOLIADA); 
-		op3 = new Opinion(ub3, Clasificacion.VINCHUCA); 
-		op1 = new Opinion(ue1, Clasificacion.CHINCHEFOLIADA);
+		// mocks de opinion 
+		op1 = mock(Opinion.class); op2 = mock(Opinion.class); op3 = mock(Opinion.class); op4 = mock(Opinion.class);
+			
+		// retornos de opiniones a getUsuario
+	    when(op1.getUsuario()).thenReturn(ue1); when(op2.getUsuario()).thenReturn(ub2); 
+	    when(op3.getUsuario()).thenReturn(ub3); when(op4.getUsuario()).thenReturn(ub4); 
+			
+	    // retornos de opiniones a getValor 
+	    when(op1.getValor()).thenReturn(Clasificacion.CHINCHEFOLIADA);
+		when(op2.getValor()).thenReturn(Clasificacion.CHINCHEFOLIADA);
+		when(op3.getValor()).thenReturn(Clasificacion.VINCHUCA);
+		when(op4.getValor()).thenReturn(Clasificacion.VINCHUCA);
 		
 		// retornos de usuarios para esExperto
         when(ue1.esExperto()).thenReturn(true); when(ub2.esExperto()).thenReturn(false); 
@@ -61,6 +68,10 @@ class SinOpinionExpertoTest {
 		assertEquals(Clasificacion.VINCHUCA, noExperto.getResultadoActual(m));  
 	}
 	
-	
+	@Test //getResultadoActualSiHayEmpate
+	void getResultadoActualDevuelveNINGUNAPorSerEmpate() {
+		noExperto.agregarOpinion(op2, m);                         
+		assertEquals(Clasificacion.NINGUNA, noExperto.getResultadoActual(m));  
+	}
 
 }

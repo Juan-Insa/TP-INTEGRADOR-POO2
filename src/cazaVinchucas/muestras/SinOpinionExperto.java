@@ -1,5 +1,6 @@
 package cazaVinchucas.muestras;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,28 +47,48 @@ public class SinOpinionExperto extends EstadoMuestra{
 	@Override
 	Clasificacion getResultadoActual(Muestra muestra) {
 		// map donde la clave es la clasificación de una opinion y el valor es su cantidad de iteraciones.
-		Map<Clasificacion, Integer> map = new HashMap<Clasificacion, Integer>();
-		                                                           
-		// lista de las clasificaciones de las opiniones.
-		List<Clasificacion> clasificaciones = muestra.getOpiniones().stream()
-				                                                    .map(o -> o.getValor())
-				                                                    .collect(Collectors.toList()); 
+		Map<Clasificacion, Integer> map = new EnumMap<Clasificacion, Integer>(Clasificacion.class);
 		
-		// recorro cada clasificación
-		for (Clasificacion c : clasificaciones) {
-			Integer votos = map.get(c);                  // obtengo la cant de votos de la clasificación.
-			map.put(c, votos == null ? 1 : votos + 1);   // si no tiene votos le asigna 1, sino agrega un voto a la cant.
-		}
+		//Le cargo para cada clasificación la cantidad de veces que esta en las opiniones
+		muestra.getOpiniones().forEach(o -> {
+			//Obtengo la clasificación a contar
+			Clasificacion key = o.getValor();
+			System.out.println(o.getValor().toString());
+			//Lo inicializa si no esta en el map
+			Integer oldValue = map.putIfAbsent(key, 1);
+			//Si ya estaba en el map le suma uno
+			if(oldValue != null) {
+				map.put(key, oldValue+1);
+			}
+		});
 		
 		Map.Entry<Clasificacion, Integer> maxC = null;   // variable para almacenar la opinion mas votada
+		Map.Entry<Clasificacion, Integer> subMaxC = null;   // variable para almacenar la segunda opinion mas votada
 		
 		for (Map.Entry<Clasificacion, Integer> e : map.entrySet()) { // utilizo Map.Entry para iterar sobre los pares
-			if (maxC == null || e.getValue() > maxC.getValue()) {    // si la clasificación actual tiene mas votos
-				maxC = e;                                            // lo reemplazo
+			
+			//Inicializa el segundo maximo, si el primero ya esta inicializado.
+			//Esto solo sucede en el segundo elemento de la iteracion
+			if (subMaxC == null && maxC != null) {
+				subMaxC = e;
+			}
+			
+			// si la clasificación actual tiene mas votos
+			if (maxC == null || e.getValue() > maxC.getValue()) {
+				//El que era primero ahora es segundo
+				subMaxC = maxC;
+				//Actualiza el primero
+				maxC = e;
 			}	                                  	
 		}
 		
-		return maxC.getKey();   // obtengo la clasificación más votada                                   
+		//Chequea que haya mas una clasificacion
+		if(subMaxC == null) {
+			return maxC.getKey();
+		}
+		
+		//Si el primero y el segundo tienen la misma cantidad, devuelve ninguna, si no devuelve al primero
+		return maxC.getValue() == subMaxC.getValue() ? Clasificacion.NINGUNA : maxC.getKey();                                   
 	}
 
 }

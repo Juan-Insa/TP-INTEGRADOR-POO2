@@ -15,7 +15,7 @@ import cazaVinchucas.Opinion.Clasificacion;
 class ConOpinionExpertoTest {
 	private Muestra m; 
 	private Ubicacion dummyUbicacion; 
-	private Opinion op2, op3, op4;
+	private Opinion op2, op3, op4;       // DOC opiniones
 	private Usuario ub1, ue1, ue2, ue3;  // DOC usuarios (ub = usuario basico, ue = usuario experto)
 	private ConOpinionExperto opExperto; // SUT
 	
@@ -27,10 +27,17 @@ class ConOpinionExpertoTest {
 		ue1 = mock(Usuario.class); ue2 = mock(Usuario.class); ue3 = mock(Usuario.class); 
 		ub1 = mock(Usuario.class);
 		
-		// opiniones
-		op2 = new Opinion(ue2, Clasificacion.CHINCHEFOLIADA); 
-		op3 = new Opinion(ue3, Clasificacion.VINCHUCA); 
-		op4 = new Opinion(ub1, Clasificacion.CHINCHEFOLIADA);
+		// mocks de opinion
+		op2 = mock(Opinion.class); op3 = mock(Opinion.class); op4 = mock(Opinion.class);
+		
+		// retornos de opiniones a getUsuario
+	    when(op2.getUsuario()).thenReturn(ue2); when(op3.getUsuario()).thenReturn(ue3);
+	    when(op4.getUsuario()).thenReturn(ub1); 
+			
+	    // retornos de opiniones a getValor 
+		when(op2.getValor()).thenReturn(Clasificacion.CHINCHEFOLIADA);
+		when(op3.getValor()).thenReturn(Clasificacion.VINCHUCA);
+		when(op4.getValor()).thenReturn(Clasificacion.CHINCHEFOLIADA);
 		
 		// retornos de usuarios para esExperto
         when(ue1.esExperto()).thenReturn(true); when(ue2.esExperto()).thenReturn(true); 
