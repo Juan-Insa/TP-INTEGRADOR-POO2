@@ -16,51 +16,26 @@ import cazaVinchucas.Categoria.Especialista;
 public class Usuario {
 
 	/**
-	 * Un id para identificar al usuario.
 	 * Una categoria para saber si es usuario basico, especialista o experto.
 	 * El sistema al que pertenecen los usuarios.
 	 */
-	private int id;
 	private Categoria categoria;
 	private Sistema sistema;
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
 	 * Un participante nuevo posee nivel basico excepto que se indique que es especialista.
-	 * Agrega el usuario al sistema en caso de que no exista otro con el mismo ID.
-	 * @param id.
 	 * @param esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
 	 */
-	public Usuario(int id, boolean esEspecialista) throws IllegalArgumentException {
-		if(sistema.existeIdUsuario(id)) {
-			throw new IllegalArgumentException("Ya existe usuario con el ID especificado");
+	public Usuario(boolean esEspecialista){
+		if(esEspecialista) {
+			categoria = new Especialista();
 		} else {
-			this.setId(id);
-			if(esEspecialista) {
-				categoria = new Especialista();
-			} else {
-				categoria = new Basico();
-			}
-			sistema.agregarUsuario(this);
+			categoria = new Basico();
 		}
+		sistema.agregarUsuario(this);
 	}
 
-	/**
-	 * Devuelve el id del usuario.
-	 * @return
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * Modifica el id del usuario.
-	 * @param id
-	 */
-	void setId(int id) {
-		this.id = id;
-	}
-	
 	/**
 	 * Devuelve un booleano que indica si es usuario experto.
 	 * @return
@@ -106,7 +81,7 @@ public class Usuario {
      * Establece un cambio de la categoria del usuario.
      * @param nuevaCategoria es la categoria a la que cambia el usuario.
      */
-	public void setCategoria(Categoria nuevaCategoria) {
+	void setCategoria(Categoria nuevaCategoria) {
 		this.categoria = nuevaCategoria;
 	}
 }

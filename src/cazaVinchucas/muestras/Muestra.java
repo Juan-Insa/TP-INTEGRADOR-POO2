@@ -17,7 +17,7 @@ import cazaVinchucas.Opinion.Clasificacion;
 /**
  * Clase encargada de representar una muestra tomada por un usuario.
  * 
- * @author Juan Cruz y Fernando
+ * @author Juan Cruz, Fernando e ivanapr
  *
  */
 public class Muestra {
@@ -25,7 +25,7 @@ public class Muestra {
 	private String foto;
     private Clasificacion resultado = Clasificacion.NINGUNA;
     private List<Opinion> opiniones = new ArrayList<>();
-    private int id; //Hay que ver si agregar getter?
+    private Usuario usuario;
     private EstadoMuestra estado;
     private LocalDate fecha;
     
@@ -37,7 +37,6 @@ public class Muestra {
      * @param user Usuario que saco la foto
      * @param foto Un string con el valor de la foto.
      * @param especie La clasificacion que hace el fotografo sobre la foto.
-     * @param id Un identificador de la muestra.
      * @param estado El estado actual de la muestra.
      */
     public Muestra(Ubicacion ubicacion, Usuario user, String foto, Clasificacion especie) {
@@ -45,7 +44,7 @@ public class Muestra {
     	//Inicializa colaboradores internos;
     	this.ubicacion = ubicacion;
 		this.resultado = Clasificacion.NINGUNA;
-		this.id = user.getId();
+		this.usuario = user;
 		this.foto = foto;
 		this.fecha = LocalDate.now();
 		
@@ -71,11 +70,11 @@ public class Muestra {
     }
     
     /**
-     * Getter id
-     * @return Devuelve un int correspondiente al id del usuario que subio la muestra.
+     * Getter usuario
+     * @return Devuelve el usuario que envio la muestra.
      */
-    public int getId() {
-    	return id;
+    public Usuario getUsuario() {
+    	return usuario;
     }
     
     /**
@@ -99,25 +98,22 @@ public class Muestra {
      * @param opinion, es la opinion a agregar.
      */
     public void agregarOpinion(Opinion opinion) throws Exception {
-    	int idOpinador = opinion.getUsuario().getId();
-    	if (!this.hayOpinionDe(idOpinador)) {
+    	if (!this.hayOpinionDe(opinion.getUsuario())) {
     	    this.estado.agregarOpinion(opinion, this);
-    	}else {
+    	} else {
     		throw new Exception("El usuario ya opino sobre esta muestra.");
     	}
     }
     
 	/**
-	 * indica si el usuario con id dado opinó en la muestra.
-	 * @param idOpinador, es el id a saber si opinó.
+	 * indica si el usuario dado opinó en la muestra.
+	 * @param opinador, es el Usuario a saber si opino.
 	 * @param muestra, es la muestra a saber si tiene la opinion.
-	 * @return verdadero si hay una opinion con el id dado, falso de lo contrario 
+	 * @return verdadero si hay una opinion con el usuario dado, falso de lo contrario 
 	 */
-	boolean hayOpinionDe(int idOpinador) {
-		Stream<Integer> ids = this.getOpiniones().stream().map(o -> o.getUsuario().getId());
- 		return ids.anyMatch(id -> id.equals(idOpinador));
+	boolean hayOpinionDe(Usuario opinador) {
+		return this.getOpiniones().stream().anyMatch(o -> o.getUsuario() == opinador);
 	}
-
 
 	/**
 	 * Devuelve la lista de opiniones de la muestra
