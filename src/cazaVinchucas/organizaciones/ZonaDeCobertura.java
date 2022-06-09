@@ -4,8 +4,10 @@ import java.util.List;
 
 import cazaVinchucas.Ubicacion;
 import cazaVinchucas.muestras.Muestra;
+import cazaVinchucas.organizaciones.ZonaDeCobertura.ZonaObserver;
 
-public class ZonaDeCobertura implements ZonaDeCoberturaSubject{
+public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
+	
     private List<OrganizacionObserver> organizaciones;
     private List<Muestra> muestrasConocidas;
     private Ubicacion epicentro;
@@ -32,11 +34,24 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject{
     }
     
     /**
+     * Recibe notificación de que hay una nueva muestra.
+     * Verifica que esta se encuentro dentro de su radio de cobertura.
+     * Si se encuentra dentro del radio, la agrega. Si no, la desestima.
+     * @param m una muestra nueva.
+     */
+    public void updateMuestraNueva(Muestra m) {
+    	if(CalculadoraDeDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion()){
+    		this.ingresarMuestra(m);
+    	}
+    }
+    
+    /**
      * ingresa una muestra a la zona de cobertura y notifica a las organizaciones
      * registradas.
+     * Precondición: Se verificó que la muestra dada esta en la zona de cobertura.
      * @param muestra, es la muestra a registrar y notificar
      */
-    void ingresarMuestra(Muestra muestra) {
+    private void ingresarMuestra(Muestra muestra) {
     	this.muestrasConocidas.add(muestra);
     	this.notificar(this, muestra);
     }
@@ -53,9 +68,5 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject{
 			organizacion.activarEvento(zona, muestra);
 		}
 	}
-    
-    
-    
-    
     
 }
