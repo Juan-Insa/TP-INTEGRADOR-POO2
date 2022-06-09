@@ -1,5 +1,6 @@
  package cazaVinchucas.muestras;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,8 @@ public class Muestra {
     private List<Opinion> opiniones = new ArrayList<>();
     private int id; //Hay que ver si agregar getter?
     private EstadoMuestra estado;
+    private LocalDate fecha;
+    
     
     /**
      * Constructor de muestra
@@ -44,6 +47,7 @@ public class Muestra {
 		this.resultado = Clasificacion.NINGUNA;
 		this.id = user.getId();
 		this.foto = foto;
+		this.fecha = LocalDate.now();
 		
     	//Inicializa el estado y agrega la opinion
     	//Del que saco la foto
@@ -119,7 +123,7 @@ public class Muestra {
 	 * Devuelve la lista de opiniones de la muestra
 	 * @return una lista de opiniones
 	 */
-	List<Opinion> getOpiniones(){
+	public List<Opinion> getOpiniones(){
 		return this.opiniones;
 	}
 
@@ -155,7 +159,7 @@ public class Muestra {
 	 * clasificación devuelta sería equivalente al resultado final.
 	 */
 	public Clasificacion getUltimoResultado() {
-		return opiniones.get(opiniones.size()-1).getValor();
+		return this.getUltimaOpinion().getValor();
 	}
 
 	/**
@@ -165,5 +169,20 @@ public class Muestra {
 	public boolean esVerificada() {
 		return resultado != Clasificacion.NINGUNA ;
 	}
+	
+	/**
+	 * Describe la fecha de creacion de la muestra.
+	 * @return la fecha de creacion de la muestra.
+	 */
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
+	/**
+	 * Devuelve la ultima opinion creada.
+	 * @return opinion.
+	 */
+	public Opinion getUltimaOpinion() {
+		return opiniones.get(opiniones.size()-1);
+	}
 }

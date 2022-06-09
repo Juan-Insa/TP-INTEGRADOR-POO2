@@ -1,5 +1,7 @@
 package cazaVinchucas;
 
+import java.time.LocalDate;
+
 /**
  * Clase que representa la opinion dada por un usuario sobre
  * una determinada muestra.
@@ -25,6 +27,7 @@ public class Opinion {
 
 	Usuario opinador;
 	Clasificacion valor;
+	LocalDate fecha;
 	
 	/**
 	 * Constructor de una Opinion.
@@ -34,6 +37,7 @@ public class Opinion {
 	public Opinion (Usuario u, Clasificacion c) {
 		opinador = u;
 		valor = c;
+		fecha = LocalDate.now();
 	}
 
 	/**
@@ -53,4 +57,12 @@ public class Opinion {
 		return valor;
 	}
 	
+	/**
+	 * Describe la fecha de creacion de la opinion.
+	 * @return la fecha de creacion de la opinion.
+	 */
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
 }

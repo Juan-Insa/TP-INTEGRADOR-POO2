@@ -2,6 +2,7 @@ package cazaVinchucas.Busqueda;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cazaVinchucas.muestras.Muestra;
 
@@ -14,13 +15,15 @@ import cazaVinchucas.muestras.Muestra;
 public class FechaCreacionMuestra implements BusquedaComponent {
 
 	private LocalDate fecha;
-	public FechaCreacionMuestra(LocalDate fecha) {
+	private Criterio criterio;
+	public FechaCreacionMuestra(LocalDate fecha, Criterio criterio) {
 		this.fecha = fecha;
+		this.criterio = criterio;
 	}
 	@Override
 	public List<Muestra> filtradas(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
-		return null;
+		return muestras.stream().filter(m -> criterio.comparar(m.getFecha(),fecha))
+				.collect(Collectors.toList());
 	}
 
 }

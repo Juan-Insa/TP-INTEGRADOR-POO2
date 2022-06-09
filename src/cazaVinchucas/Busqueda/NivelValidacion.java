@@ -1,6 +1,7 @@
 package cazaVinchucas.Busqueda;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cazaVinchucas.muestras.Muestra;
 
@@ -12,10 +13,17 @@ import cazaVinchucas.muestras.Muestra;
  */
 public class NivelValidacion implements BusquedaComponent {
 
+	private boolean validacion;
+	
+	/**
+	 * @param validacion es un booleano que determina en el constructor si la busqueda va a ser de muestras verificadas o no
+	 */
+	public NivelValidacion(boolean validacion) {
+		this.validacion = validacion;
+	}
 	@Override
 	public List<Muestra> filtradas(List<Muestra> muestras) {
-		// TODO Auto-generated method stub
-		return null;
+		return muestras.stream().filter(m -> (m.esVerificada() == validacion)).collect(Collectors.toList());
 	}
 
 }

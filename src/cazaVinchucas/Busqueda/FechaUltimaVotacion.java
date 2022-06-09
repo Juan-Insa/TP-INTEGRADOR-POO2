@@ -22,10 +22,8 @@ public class FechaUltimaVotacion implements BusquedaComponent {
 	}
 	@Override
 	public List<Muestra> filtradas(List<Muestra> muestras) {
-		List<Muestra> buscadas = muestras.stream().map(m -> {
-			m.getOpiniones().stream().filter(o -> criterio.esValido(o.getFecha(),fecha));})
+		return muestras.stream().filter(m -> criterio.comparar(m.getUltimaOpinion().getFecha(),fecha))
 				.collect(Collectors.toList());
-		return buscadas;
 	}
 
 }
