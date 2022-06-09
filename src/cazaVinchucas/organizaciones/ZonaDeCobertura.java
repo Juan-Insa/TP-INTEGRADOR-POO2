@@ -1,5 +1,6 @@
 package cazaVinchucas.organizaciones;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cazaVinchucas.Ubicacion;
@@ -12,7 +13,69 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
     private List<Muestra> muestrasConocidas;
     private Ubicacion epicentro;
     private String nombre;
-    private Double radio;
+    private double radio;
+    
+    /**
+     * Constructor de una Zona de Cobertura nueva.
+     * Precondición: Al momento de crear la zona dada no existen muestras
+     * previas en la zona dada, o de existir deben ser notificadas. Si no
+     * se desea tener que verificar las zonas, usar el otro constructor.
+     * @param e la ubicacion del epicentro de la zona a construir.
+     * @param n el nombre de la zona a construir.
+     * @param r el radio de la zona a construir.
+     */
+    public ZonaDeCobertura(Ubicacion e, String n, double r) {
+    	epicentro = e;
+    	nombre = n;
+    	radio = r;
+    	organizaciones = new ArrayList<OrganizacionObserver>();
+    	muestrasConocidas = new ArrayList<Muestra>();
+    }
+    
+    /**
+     * Constructor de una Zona de Cobertura nueva.
+     * Precondición: La lista de muestras dada se corresponde a todas las
+     * muestras en el sistema al momento de construir la Zona de cobertura.
+     * @param e la ubicacion del epicentro de la zona a construir.
+     * @param n el nombre de la zona a construir.
+     * @param r el radio de la zona a construir.
+     * @param muestrasViejas
+     */
+    public ZonaDeCobertura(Ubicacion e, String n, double r, List<Muestra> muestrasViejas) {
+    	epicentro = e;
+    	nombre = n;
+    	radio = r;
+    	organizaciones = new ArrayList<OrganizacionObserver>();
+    	muestrasConocidas = new ArrayList<Muestra>();
+    	muestrasViejas.forEach(m -> this.updateMuestraNueva(m));
+    }
+    
+    /**
+     * Getter nombre.
+     * @return Devuelve un String que se corresponde con el nombre de la 
+     * ZonaDeCobertura.
+     */
+    public String getNombre() {
+    	return nombre;
+    }
+    
+    /**
+     * Getter epicentro.
+     * @return Devuelve una Ubicación que se corresponde con el epicentro
+     * de la ZonaDeCobertura.
+     */
+    public Ubicacion getEpicentro() {
+    	return epicentro;
+    }
+    
+    /**
+     * Getter radio.
+     * @return Devuelve un double que se corresponde con el radio de la
+     * ZonaDeCobertura.
+     */
+    public double getRadio() {
+    	return radio;
+    }
     
     /**
      * agrega una organización a la lista de organizaciones para ser notificada
@@ -68,5 +131,4 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
 			organizacion.activarEvento(zona, muestra);
 		}
 	}
-    
 }
