@@ -49,7 +49,12 @@ public class Muestra {
     	//Del que saco la foto
     	this.estado = new SinOpinionExperto();
 		Opinion opinionDeFotografo = new Opinion(user, especie);
-		this.agregarOpinion(opinionDeFotografo);
+		//Pregunta, estoy obligado?
+		try {
+			this.agregarOpinion(opinionDeFotografo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
     
@@ -89,11 +94,13 @@ public class Muestra {
      * Delega al estado de la muestra el proceso de agregar una nueva opinion.
      * @param opinion, es la opinion a agregar.
      */
-    public void agregarOpinion(Opinion opinion) {
+    public void agregarOpinion(Opinion opinion) throws Exception {
     	int idOpinador = opinion.getUsuario().getId();
     	if (!this.hayOpinionDe(idOpinador)) {
     	    this.estado.agregarOpinion(opinion, this);
-    	}   
+    	}else {
+    		throw new Exception("El usuario ya opino sobre esta muestra.");
+    	}
     }
     
 	/**

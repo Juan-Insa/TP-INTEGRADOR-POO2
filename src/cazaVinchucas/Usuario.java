@@ -87,8 +87,12 @@ public class Usuario {
 	 */
 	public void opinar(Clasificacion especie, Muestra muestra) {
 		Opinion unaOpinion = new Opinion(this, especie);
-		muestra.agregarOpinion(unaOpinion);
-		sistema.agregarOpinion(unaOpinion);
+		try {
+			muestra.agregarOpinion(unaOpinion);
+			sistema.agregarOpinion(unaOpinion, muestra);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	/**
