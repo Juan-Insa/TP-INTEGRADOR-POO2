@@ -17,6 +17,8 @@ public class Usuario {
 
 	/**
 	 * Un id para identificar al usuario.
+	 * Una categoria para saber si es usuario basico, especialista o experto.
+	 * El sistema al que pertenecen los usuarios.
 	 */
 	private int id;
 	private Categoria categoria;
@@ -24,16 +26,22 @@ public class Usuario {
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
-	 * Un participante nuevo posee nivel b�sico excepto que se indique que es especialista.
+	 * Un participante nuevo posee nivel basico excepto que se indique que es especialista.
+	 * Agrega el usuario al sistema en caso de que no exista otro con el mismo ID.
 	 * @param id.
 	 * @param esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
 	 */
-	public Usuario(int id, boolean esEspecialista) {
-		this.setId(id);
-		if(esEspecialista) {
-			categoria = new Especialista();
+	public Usuario(int id, boolean esEspecialista) throws IllegalArgumentException {
+		if(sistema.existeIdUsuario(id)) {
+			throw new IllegalArgumentException("Ya existe usuario con el ID especificado");
 		} else {
-			categoria = new Basico();
+			this.setId(id);
+			if(esEspecialista) {
+				categoria = new Especialista();
+			} else {
+				categoria = new Basico();
+			}
+			sistema.agregarUsuario(this);
 		}
 	}
 
