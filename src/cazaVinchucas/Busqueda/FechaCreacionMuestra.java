@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import cazaVinchucas.Busqueda.criterios.Criterio;
 import cazaVinchucas.muestras.Muestra;
 
 /**
