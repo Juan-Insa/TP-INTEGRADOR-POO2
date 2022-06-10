@@ -1,5 +1,6 @@
 package cazaVinchucas.organizaciones;
 
+import cazaVinchucas.ZonaDeCobertura.ZonaDeCobertura;
 import cazaVinchucas.muestras.Muestra;
 
 public interface FuncionalidadExterna {

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import cazaVinchucas.Categoria.Usuario;
+import cazaVinchucas.ZonaDeCobertura.ZonaDeCobertura;
 import cazaVinchucas.muestras.Muestra;
-import cazaVinchucas.organizaciones.ZonaDeCobertura;
 /**
  * Clase que modela el sistema. Es patron singleton
  * 

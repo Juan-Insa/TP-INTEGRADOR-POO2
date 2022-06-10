@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Ubicacion;
 import cazaVinchucas.Categoria.Usuario;
-import cazaVinchucas.Opinion.Clasificacion;
 
 class MuestraTestCase {
 	private Muestra m;                        // SUT

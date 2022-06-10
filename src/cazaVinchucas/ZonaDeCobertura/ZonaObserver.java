@@ -1,4 +1,4 @@
-package cazaVinchucas.organizaciones;
+package cazaVinchucas.ZonaDeCobertura;
 
 import cazaVinchucas.muestras.Muestra;
 

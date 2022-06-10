@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Ubicacion;
 import cazaVinchucas.Categoria.Usuario;
-import cazaVinchucas.Opinion.Clasificacion;
 
 /**
  * Clase encargada de representar una muestra tomada por un usuario.

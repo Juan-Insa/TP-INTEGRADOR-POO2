@@ -1,9 +1,9 @@
 package cazaVinchucas.Categoria;
 
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Sistema;
 import cazaVinchucas.Ubicacion;
-import cazaVinchucas.Opinion.Clasificacion;
 import cazaVinchucas.muestras.Muestra;
 
 /**

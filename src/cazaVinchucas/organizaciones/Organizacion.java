@@ -3,6 +3,7 @@ package cazaVinchucas.organizaciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import cazaVinchucas.ZonaDeCobertura.ZonaDeCobertura;
 import cazaVinchucas.muestras.Muestra;
 
 public class Organizacion implements OrganizacionObserver{

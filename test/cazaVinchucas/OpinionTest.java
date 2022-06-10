@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import cazaVinchucas.Categoria.Usuario;
-import cazaVinchucas.Opinion.Clasificacion;
+
 import static org.mockito.Mockito.*;
 
 class OpinionTest {

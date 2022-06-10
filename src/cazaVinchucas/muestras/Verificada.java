@@ -1,7 +1,7 @@
 package cazaVinchucas.muestras;
 
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
-import cazaVinchucas.Opinion.Clasificacion;
 
 public class Verificada extends EstadoMuestra{
 	

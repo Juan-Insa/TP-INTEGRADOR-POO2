@@ -1,4 +1,4 @@
-package cazaVinchucas.organizaciones;
+package cazaVinchucas.ZonaDeCobertura;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import cazaVinchucas.CalculadoraDistancias;
 import cazaVinchucas.Ubicacion;
 import cazaVinchucas.muestras.Muestra;
+import cazaVinchucas.organizaciones.OrganizacionObserver;
 
 public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
 	

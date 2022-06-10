@@ -1,7 +1,7 @@
 package cazaVinchucas.muestras;
 
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
-import cazaVinchucas.Opinion.Clasificacion;
 
 /**
  * Clase abstracta que heredan los diferentes estados

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cazaVinchucas.ZonaDeCobertura.ZonaDeCobertura;
 import cazaVinchucas.muestras.Muestra;
 
 class OrganizacionTest {

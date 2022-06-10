@@ -2,8 +2,8 @@ package cazaVinchucas.muestras;
 
 import java.util.stream.Stream;
 
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
-import cazaVinchucas.Opinion.Clasificacion;
 
 /**
  * Clase encargada de representar el comportamiento particular de una 

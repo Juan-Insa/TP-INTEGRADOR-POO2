@@ -3,7 +3,7 @@ package cazaVinchucas.Busqueda;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import cazaVinchucas.Opinion.Clasificacion;
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.muestras.Muestra;
 
 /**

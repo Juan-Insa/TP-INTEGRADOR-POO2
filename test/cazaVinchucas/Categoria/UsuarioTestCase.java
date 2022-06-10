@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cazaVinchucas.Opinion.Clasificacion;
+import cazaVinchucas.Clasificacion;
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Sistema;
 import cazaVinchucas.Ubicacion;
