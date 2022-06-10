@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Ubicacion;
-import cazaVinchucas.Usuario;
+import cazaVinchucas.Categoria.Usuario;
 import cazaVinchucas.Opinion.Clasificacion;
 
 /**

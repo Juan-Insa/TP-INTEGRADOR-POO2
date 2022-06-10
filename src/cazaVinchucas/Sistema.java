@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import cazaVinchucas.Usuario;
+import cazaVinchucas.Categoria.Usuario;
 import cazaVinchucas.muestras.Muestra;
 import cazaVinchucas.organizaciones.ZonaDeCobertura;
 /**

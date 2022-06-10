@@ -1,10 +1,10 @@
-package cazaVinchucas;
+package cazaVinchucas.Categoria;
 
+import cazaVinchucas.Opinion;
+import cazaVinchucas.Sistema;
+import cazaVinchucas.Ubicacion;
 import cazaVinchucas.Opinion.Clasificacion;
 import cazaVinchucas.muestras.Muestra;
-import cazaVinchucas.Categoria.Basico;
-import cazaVinchucas.Categoria.Categoria;
-import cazaVinchucas.Categoria.Especialista;
 
 /**
  * Clase que modela el usuario del sistema.

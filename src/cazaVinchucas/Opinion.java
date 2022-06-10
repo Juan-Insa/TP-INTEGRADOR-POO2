@@ -2,6 +2,8 @@ package cazaVinchucas;
 
 import java.time.LocalDate;
 
+import cazaVinchucas.Categoria.Usuario;
+
 /**
  * Clase que representa la opinion dada por un usuario sobre
  * una determinada muestra.

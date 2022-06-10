@@ -1,7 +1,6 @@
 package cazaVinchucas.Categoria;
 
 import cazaVinchucas.Sistema;
-import cazaVinchucas.Usuario;
 
 /**
  * Clase encargada de representar el comportamiento particular de una 
@@ -25,8 +24,8 @@ public class Basico extends Categoria {
 	 * @param usuario es el usuario actual
 	 */
 	public void recategorizar(Sistema sistema, Usuario usuario) {
-		//Básico: para aquellas personas que recién comienzan a participar. Un participante nuevo posee nivel básico.
-		//Experto: son personas que durante los últimos 30 días desde la fecha actual han realizado más de 10 envíos y más de 20 revisiones.
+		//Bï¿½sico: para aquellas personas que reciï¿½n comienzan a participar. Un participante nuevo posee nivel bï¿½sico.
+		//Experto: son personas que durante los ï¿½ltimos 30 dï¿½as desde la fecha actual han realizado mï¿½s de 10 envï¿½os y mï¿½s de 20 revisiones.
 		if ((sistema.getMuestrasDe(usuario).size() > 10) && (sistema.getOpinionesDe(usuario).size() > 20)) {
 			usuario.setCategoria(new Experto());
 		}
