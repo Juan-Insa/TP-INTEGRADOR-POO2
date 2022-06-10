@@ -3,7 +3,6 @@ package cazaVinchucas;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import cazaVinchucas.Categoria.Usuario;
 import cazaVinchucas.muestras.Muestra;
@@ -71,6 +70,7 @@ public class Sistema {
 	 */
 	public void agregarMuestra(Muestra muestra) {
 		muestras.add(muestra);
+		this.notificarZonas(muestra);
 	}
 	
 	/**
@@ -82,8 +82,17 @@ public class Sistema {
 		
 		//PREGUNTAR EN CLASES
 		if(muestra.esVerificada()) {
-			zonas.forEach(z -> z.updateMuestraValidada(muestra));
+			this.notificarZonas(muestra);
 		}
+	}
+	
+	/**
+	 * Notifica a las zonas de cobertura que hubo una
+	 * muestra nueva o verificada.
+	 * @param m
+	 */
+	private void notificarZonas(Muestra m) {
+		zonas.forEach(z -> z.updateMuestra(m));	
 	}
 	
 	/**

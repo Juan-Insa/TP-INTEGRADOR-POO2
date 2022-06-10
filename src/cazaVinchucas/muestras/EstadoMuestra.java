@@ -1,7 +1,5 @@
 package cazaVinchucas.muestras;
 
-import java.util.stream.Stream;
-
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Opinion.Clasificacion;
 

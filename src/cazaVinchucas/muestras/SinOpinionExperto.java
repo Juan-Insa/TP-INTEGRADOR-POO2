@@ -1,10 +1,7 @@
 package cazaVinchucas.muestras;
 
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Opinion.Clasificacion;
@@ -33,7 +30,7 @@ public class SinOpinionExperto extends EstadoMuestra{
 	 * @param opinion, la opinion a determinar si es de experto.
 	 * @param muestra, la muestra a cambiar de estado.
 	 */
-	void cambiarDeEstadoSiEsExperto(Opinion opinion, Muestra muestra) {
+	private void cambiarDeEstadoSiEsExperto(Opinion opinion, Muestra muestra) {
 		if (opinion.getUsuario().esExperto()) {
 		    muestra.setEstado(new ConOpinionExperto());	
 		}

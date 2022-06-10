@@ -37,7 +37,7 @@ public class ConOpinionExperto extends EstadoMuestra {
 	 * @param opinion, la opinion a chequear si coincide con otra.
 	 * @param muestra, la muestra a chequear si se verifica.
      */
-	void chequearResultado(Opinion opinion,  Muestra muestra) {
+	private void chequearResultado(Opinion opinion,  Muestra muestra) {
 		if (this.sePuedeVerificar(opinion.getValor(), muestra)) {
 			// setea el valor de la opinion como resultado de la muestra
 			muestra.setResultado(opinion.getValor());  

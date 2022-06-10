@@ -48,7 +48,10 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      */
     public ZonaDeCobertura(Ubicacion e, String n, double r, List<ZonaDeCobertura> zonasViejas, List<Muestra> muestrasViejas) {
     	this(e,n,r);
-    	muestrasViejas.forEach(m -> this.updateMuestraNueva(m));
+    	muestrasViejas.forEach(m -> {
+    		this.notificar(m);
+    		this.ingresarMuestra(m);
+    	});
     	zonasViejas.forEach(z -> this.updateZonaNueva(z));
     }
     
@@ -105,28 +108,22 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      * @param m una muestra nueva.
      */
     @Override
-    public void updateMuestraNueva(Muestra m) {
+    public void updateMuestra(Muestra m) { //string s
     	if(CalculadoraDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion())){
-    		this.ingresarMuestra(m);
+    		if(!m.esVerificada()) { // s == "Nueva"
+    			this.ingresarMuestra(m);
+    		}
+    		this.notificar(m);
     	}
     }
 
-	@Override
-	public void updateMuestraValidada(Muestra m) {
-    	if(CalculadoraDistancias.estanDentroDelRadio(radio, epicentro, m.getUbicacion())){
-    		this.notificar(m);
-    	}
-	}
-
     /**
-     * Ingresa una muestra a la zona de cobertura y notifica a las organizaciones
-     * registradas.
+     * Ingresa una muestra a la zona de cobertura.
      * Precondición: Se verificó que la muestra dada esta en la zona de cobertura.
      * @param muestra, es la muestra a registrar y notificar
      */
     private void ingresarMuestra(Muestra muestra) {
     	this.muestrasConocidas.add(muestra);
-    	this.notificar(muestra);
     }
 
     /**

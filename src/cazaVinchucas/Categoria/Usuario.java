@@ -20,7 +20,7 @@ public class Usuario {
 	 * El sistema al que pertenecen los usuarios.
 	 */
 	private Categoria categoria;
-	private Sistema sistema;
+	private Sistema sistema = Sistema.getSistema();
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
@@ -33,7 +33,6 @@ public class Usuario {
 		} else {
 			categoria = new Basico();
 		}
-		sistema.agregarUsuario(this);
 	}
 
 	/**
@@ -77,6 +76,7 @@ public class Usuario {
 	public void recategorizar(Sistema sistema) {
 		this.categoria.recategorizar(sistema, this);
 	}
+	
     /**
      * Establece un cambio de la categoria del usuario.
      * @param nuevaCategoria es la categoria a la que cambia el usuario.

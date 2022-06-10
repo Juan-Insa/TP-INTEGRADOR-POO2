@@ -29,6 +29,14 @@ public class Organizacion implements OrganizacionObserver{
 	}
 
 	/**
+	 * Describe un getter del tipo
+	 * @return un String equivalente al tipo de la organizacion.
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	
+	/**
 	 * activa el evento de la funcionalidad externa.
 	 * @param zona, es la zona que notificó la muestra.
 	 * @param muestra,  
