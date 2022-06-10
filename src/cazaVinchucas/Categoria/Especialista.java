@@ -1,7 +1,6 @@
 package cazaVinchucas.Categoria;
 
 import cazaVinchucas.Sistema;
-import cazaVinchucas.Usuario;
 
 /**
  * Clase encargada de representar el comportamiento particular de una 

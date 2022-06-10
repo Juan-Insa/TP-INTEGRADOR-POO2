@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import cazaVinchucas.Opinion;
 import cazaVinchucas.Ubicacion;
-import cazaVinchucas.Usuario;
+import cazaVinchucas.Categoria.Usuario;
 import cazaVinchucas.Opinion.Clasificacion;
 
 class MuestraTestCase {

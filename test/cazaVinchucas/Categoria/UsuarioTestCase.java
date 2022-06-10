@@ -1,4 +1,4 @@
-package cazaVinchucas;
+package cazaVinchucas.Categoria;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,9 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import cazaVinchucas.Opinion.Clasificacion;
+import cazaVinchucas.Opinion;
+import cazaVinchucas.Sistema;
+import cazaVinchucas.Ubicacion;
 import cazaVinchucas.Categoria.Basico;
 import cazaVinchucas.Categoria.Especialista;
 import cazaVinchucas.Categoria.Experto;
+import cazaVinchucas.Categoria.Usuario;
 import cazaVinchucas.muestras.Muestra;
 
 import static org.mockito.Mockito.*;
@@ -32,9 +36,9 @@ class UsuarioTestCase {
 	@BeforeEach
 	void setUp() throws Exception {
 		sist = new Sistema();
-		usba1 = new Usuario(1, false);
-		usex2 = new Usuario(2, false);
-		uses3 = new Usuario(3, true);
+		usba1 = new Usuario(false);
+		usex2 = new Usuario(false);
+		uses3 = new Usuario(true);
 		catus = new Basico();
 		catex = new Experto();
 		cates = new Especialista();
@@ -43,20 +47,9 @@ class UsuarioTestCase {
 		m2 = new Muestra(dummyUbicacion, usex2, dummyFoto, dummyClasificacion);
 		sist.agregarMuestra(m1);
 		sist.agregarMuestra(m2);
-		sist.agregarOpinion(dummyOpinion);
+		sist.agregarOpinion(dummyOpinion, m1);
 	}
 	
-	@Test
-	void testGetId() {
-		assertEquals(1, usba1.getId()); //Verify
-		assertEquals(2, usex2.getId()); //Verify
-		assertEquals(3, uses3.getId()); //Verify
-	}
-	@Test
-	void testSetId() {
-		usba1.setId(4); // Exercise se setea un nuevo id al usuario
-		assertEquals(4, usba1.getId());	//Verify se chequea que el usuario devuelva su correspondiente id
-	}
 	@Test
 	void testEsExperto() {
 		assertEquals(false, usba1.esExperto()); //Verify da false porque es Basico

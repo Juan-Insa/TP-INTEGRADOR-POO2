@@ -22,6 +22,7 @@ class DistanciasTest {
 		//Las distancias tomadas estan basadas en google maps.
 		//El error de presicion de 500m puede estar dado por diferencias en los radios usados.
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, madridEspaña), 10047.53d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspaña, unq), 10047.53d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, constitucionCapital), 12.64d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, cairoEgipto), 11808.35d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspaña, cairoEgipto), 3349.81d, .5d);

@@ -1,10 +1,10 @@
-package cazaVinchucas;
+package cazaVinchucas.Categoria;
 
+import cazaVinchucas.Opinion;
+import cazaVinchucas.Sistema;
+import cazaVinchucas.Ubicacion;
 import cazaVinchucas.Opinion.Clasificacion;
 import cazaVinchucas.muestras.Muestra;
-import cazaVinchucas.Categoria.Basico;
-import cazaVinchucas.Categoria.Categoria;
-import cazaVinchucas.Categoria.Especialista;
 
 /**
  * Clase que modela el usuario del sistema.
@@ -16,43 +16,26 @@ import cazaVinchucas.Categoria.Especialista;
 public class Usuario {
 
 	/**
-	 * Un id para identificar al usuario.
+	 * Una categoria para saber si es usuario basico, especialista o experto.
+	 * El sistema al que pertenecen los usuarios.
 	 */
-	private int id;
 	private Categoria categoria;
 	private Sistema sistema;
 	
 	/**
 	 * Constructor. Crea una instancia de Usuario.
-	 * Un participante nuevo posee nivel b�sico excepto que se indique que es especialista.
-	 * @param id.
+	 * Un participante nuevo posee nivel basico excepto que se indique que es especialista.
 	 * @param esEspecialista porque existen algunos usuarios que poseen conocimiento validado en forma externa.
 	 */
-	public Usuario(int id, boolean esEspecialista) {
-		this.setId(id);
+	public Usuario(boolean esEspecialista){
 		if(esEspecialista) {
 			categoria = new Especialista();
 		} else {
 			categoria = new Basico();
 		}
+		sistema.agregarUsuario(this);
 	}
 
-	/**
-	 * Devuelve el id del usuario.
-	 * @return
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * Modifica el id del usuario.
-	 * @param id
-	 */
-	void setId(int id) {
-		this.id = id;
-	}
-	
 	/**
 	 * Devuelve un booleano que indica si es usuario experto.
 	 * @return
@@ -79,7 +62,12 @@ public class Usuario {
 	 */
 	public void opinar(Clasificacion especie, Muestra muestra) {
 		Opinion unaOpinion = new Opinion(this, especie);
-		muestra.agregarOpinion(unaOpinion);
+		try {
+			muestra.agregarOpinion(unaOpinion);
+			sistema.agregarOpinion(unaOpinion, muestra);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	/**
@@ -93,7 +81,7 @@ public class Usuario {
      * Establece un cambio de la categoria del usuario.
      * @param nuevaCategoria es la categoria a la que cambia el usuario.
      */
-	public void setCategoria(Categoria nuevaCategoria) {
+	void setCategoria(Categoria nuevaCategoria) {
 		this.categoria = nuevaCategoria;
 	}
 }

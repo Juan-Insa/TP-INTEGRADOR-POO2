@@ -1,7 +1,6 @@
 package cazaVinchucas.Categoria;
 
 import cazaVinchucas.Sistema;
-import cazaVinchucas.Usuario;
 
 /**
  * Clase que modela la categoria del usuario del sistema.

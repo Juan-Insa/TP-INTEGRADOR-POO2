@@ -69,8 +69,8 @@ public class CalculadoraDistancias {
 	 * Se puede especificar otros radios de la tierra, si se desea mas exactitud para ciertas ubicaciones especificas.
 	 * Si los puntos tienden a los meridianos (longitudes similares) utilizar el radio polar (6378km), si tienden a los 
 	 * paralelos (latitudes similares) utilizar el radio ecuatorial (6371km).
-	 * @param r es un double que representa un radio valido para la tierra (valor entre 6371d y 6378d.
-	 * @throws Exception 
+	 * @param r es un double que representa un radio valido para la tierra (valor entre 6371d y 6378d)
+	 * @throws Exception Si recibe un radio invalido.
 	 */
 	public static void setRadioTierra(double r) throws Exception {
 		if (r < 6371d || 6378d < r) {
@@ -91,5 +91,30 @@ public class CalculadoraDistancias {
 	 */
 	public static void setRadioPolarTierra() {
 		radioTierra = 6378;
+	}
+	
+	/**
+	 * Dado el radio de dos circulos y sus respectivos epicentros, indica si estos se superponen
+	 * en alguna parte.
+	 * @param radio el radio del primer circulo.
+	 * @param epicentro el epicentro del primer circulo (expresado como una Ubicacion).
+	 * @param radio2 el radio del segundo circulo.
+	 * @param epicentro2 el epicentro del segundo circulo (expresado como una Ubicacion).
+	 * @return Verdadero si los circulos estan superpuestos en algun punto.
+	 */
+	public static boolean estanRadiosSuperpuestos(double radio, Ubicacion epicentro, double radio2,
+			Ubicacion epicentro2) {
+		return CalculadoraDistancias.distanciaUbicaciones(epicentro, epicentro2) <= radio+radio2;
+	}
+
+	/**
+	 * Dado un circulo y un punto, indica si ese punto esta dentro del circulo.
+	 * @param radio el radio del circulo, expresado como un double en km.
+	 * @param epicentro el epicentro del circulo, expresado como una Ubicación.
+	 * @param ubicacion una Ubicación a verificar si esta dentro del circulo dado.
+	 * @return Verdadero si el punto se encuentra dentro del circulo.
+	 */
+	public static boolean estanDentroDelRadio(double radio, Ubicacion epicentro, Ubicacion ubicacion) {
+		return CalculadoraDistancias.distanciaUbicaciones(epicentro, ubicacion) <= radio;
 	}
 }
