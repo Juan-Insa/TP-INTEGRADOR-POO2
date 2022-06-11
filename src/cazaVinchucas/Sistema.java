@@ -102,4 +102,8 @@ public class Sistema {
 	public void agregarUsuario(Usuario usuario) {
 		usuarios.add(usuario);
 	}
+	
+	public void agregarZona(ZonaDeCobertura zona) {
+		zonas.add(zona);
+	}
 }

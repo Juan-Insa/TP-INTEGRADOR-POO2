@@ -1,6 +1,7 @@
 package cazaVinchucas.muestras;
 
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -119,4 +120,27 @@ class MuestraTestCase {
 		
 	}
 	
+	@Test //getUbicacion
+	void getUbicacion() {
+		assertEquals(dummyUbicacion, m.getUbicacion());
+	}
+	
+	@Test //getUsuario
+	void getUSuario() {
+		assertEquals(ub1, m.getUsuario());
+	}
+	
+	@Test //getFoto
+	void getFoto() {
+		assertEquals("chinche.jpg", m.getFoto());
+	}
+	
+	@Test //esVerificada
+	void esVerificada() throws Exception {
+		// todavía no es verificada
+		assertFalse(m.esVerificada());
+		// ambas opiniones PHTIACHINCHE dejan la muestra verificada.
+		m.agregarOpinion(op3); m.agregarOpinion(op4);
+		assertTrue(m.esVerificada());
+	}
 }

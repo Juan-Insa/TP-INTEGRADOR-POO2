@@ -106,5 +106,10 @@ class OrganizacionTest {
 		
 		assertTrue(zonas.containsAll(o.getZonasCubiertas()));
 	}
+	
+	@Test // getTipo
+	void getTipo() {
+		assertEquals("Gubernamental", o.getTipo());
+	}
 
 }
