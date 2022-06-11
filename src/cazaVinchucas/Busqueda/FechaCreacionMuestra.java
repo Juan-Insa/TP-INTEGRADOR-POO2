@@ -17,6 +17,7 @@ public class FechaCreacionMuestra implements BusquedaComponent {
 
 	private LocalDate fecha;
 	private Criterio criterio;
+	
 	public FechaCreacionMuestra(LocalDate fecha, Criterio criterio) {
 		this.fecha = fecha;
 		this.criterio = criterio;

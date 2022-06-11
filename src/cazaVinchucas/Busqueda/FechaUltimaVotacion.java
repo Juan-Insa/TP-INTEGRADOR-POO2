@@ -17,6 +17,7 @@ public class FechaUltimaVotacion implements BusquedaComponent {
 
 	private LocalDate fecha;
 	private Criterio criterio;
+	
 	public FechaUltimaVotacion(LocalDate fecha, Criterio criterio) {
 		this.fecha = fecha;
 		this.criterio = criterio;
