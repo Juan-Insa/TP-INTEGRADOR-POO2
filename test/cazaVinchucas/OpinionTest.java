@@ -9,6 +9,8 @@ import cazaVinchucas.Categoria.Usuario;
 
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
+
 class OpinionTest {
 
 	Opinion a,b,c; //SUT
@@ -44,5 +46,11 @@ class OpinionTest {
 		//Verify
 		assertEquals(Clasificacion.POCOCLARA, c.getValor());
 		assertEquals(dummy2, c.getUsuario());
+	}
+	
+	@Test
+	void testGetFecha() {
+		//Verify
+		assertEquals(LocalDate.now(), a.getFecha());
 	}
 }
