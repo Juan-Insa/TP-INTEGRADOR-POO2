@@ -5,20 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cazaVinchucas.Clasificacion;
-import cazaVinchucas.Opinion;
 import cazaVinchucas.Sistema;
-import cazaVinchucas.Ubicacion;
-import cazaVinchucas.Categoria.Basico;
-import cazaVinchucas.Categoria.Especialista;
-import cazaVinchucas.Categoria.Experto;
-import cazaVinchucas.Categoria.Usuario;
 import cazaVinchucas.muestras.Muestra;
 
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 class UsuarioTestCase {
 
@@ -59,5 +50,6 @@ class UsuarioTestCase {
 		usex2.recategorizar(sist); // Exercise
 		verify(catex, times(1)).recategorizar(sist, usex2); //Verify
 	}
+
 
 }

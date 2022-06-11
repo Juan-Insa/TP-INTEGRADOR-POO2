@@ -128,6 +128,7 @@ class ZonaDeCoberturaTest {
 		assertFalse(gba.getZonasSolapadas().contains(espana));
 	}
 	
+	@Test
 	void testNotificandoOrganizaciones() {
 		//Excersice
 		//Se registran dos organizaciones, pero luego una se la quita. De modo
