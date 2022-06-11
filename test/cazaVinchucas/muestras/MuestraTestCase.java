@@ -1,5 +1,6 @@
 package cazaVinchucas.muestras;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -46,10 +47,6 @@ class MuestraTestCase {
 		when(op2.getUsuario()).thenReturn(ub2); when(op3.getUsuario()).thenReturn(ue1); 
 		when(op4.getUsuario()).thenReturn(ue2); when(op5.getUsuario()).thenReturn(ue3); 
 		
-		//retornos de ids de Usuario
-		when(ub1.getId()).thenReturn(01); when(ub2.getId()).thenReturn(02); when(ue1.getId()).thenReturn(03);
-		when(ue2.getId()).thenReturn(04); when(ue3.getId()).thenReturn(05);
-		
 		// retornos de usuarios para esExperto
 		when(ub1.esExperto()).thenReturn(false); when(ub2.esExperto()).thenReturn(false);
 	    when(ue1.esExperto()).thenReturn(true);  when(ue2.esExperto()).thenReturn(true);
@@ -66,27 +63,28 @@ class MuestraTestCase {
 	}
 	
 	@Test //agregarOpinion
-	void agregarOpinionDelegaASuEstadoYAgregaLaOpinion() {
+	void agregarOpinionDelegaASuEstadoYAgregaLaOpinion() throws Exception {
 		m.agregarOpinion(op2);
 		assertTrue(m.getOpiniones().contains(op2));
 	}
 	
 	@Test //agregarOpinion
-	void agregarOpinionNoAgregaLaOpinionDeUsuarioQueYaOpino() {
+	void agregarOpinionNoAgregaLaOpinionDeUsuarioQueYaOpino() throws Exception {
+		assertEquals(1, m.getOpiniones().size());
 		m.agregarOpinion(op2);
-		assertEquals(2, m.getOpiniones().size());
-		m.agregarOpinion(op2);
-		assertEquals(2, m.getOpiniones().size());
+		assertEquals(2, m.getOpiniones().size()); // agrega el elemento
+		// cuando lo vuelvo a agregar tira exception
+		assertThrows(Exception.class, () -> m.agregarOpinion(op2));
 	}
 	
 	@Test //hayOpinionDe
 	void hayOpinionDe() {
-		assertTrue(m.hayOpinionDe(01));
-		assertFalse(m.hayOpinionDe(02));
+		assertTrue(m.hayOpinionDe(ub1));
+		assertFalse(m.hayOpinionDe(ub2));
 	}
 	
 	@Test //getResultado
-	void getResultadoDevuelvePHTIACHINCHE(){
+	void getResultadoDevuelvePHTIACHINCHE() throws Exception{
 		assertEquals(Clasificacion.NINGUNA, m.getResultado());
 		m.agregarOpinion(op3); m.agregarOpinion(op4);
 		assertEquals(Clasificacion.PHTIACHINCHE, m.getResultado());
@@ -101,13 +99,13 @@ class MuestraTestCase {
 	}
 	
 	@Test //getUltimoResultado
-	void getUltimoResultadoDevuelvePOCOCLARA() {
+	void getUltimoResultadoDevuelvePOCOCLARA() throws Exception {
 		m.agregarOpinion(op2); m.agregarOpinion(op5);
 		assertEquals(Clasificacion.POCOCLARA, m.getUltimoResultado());
 	}
 	
 	@Test //agregarOpinion
-	void getOpiniones() {
+	void getOpiniones() throws Exception {
 		m.agregarOpinion(op2); m.agregarOpinion(op3);
 		ArrayList<Opinion> mismasOpiniones = new ArrayList<Opinion>();
 		mismasOpiniones.add(m.getOpiniones().get(0));
