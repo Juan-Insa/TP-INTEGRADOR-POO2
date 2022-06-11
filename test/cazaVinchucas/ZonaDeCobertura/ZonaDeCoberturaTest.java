@@ -14,7 +14,7 @@ import cazaVinchucas.organizaciones.Organizacion;
 
 class ZonaDeCoberturaTest {
 
-	ZonaDeCobertura unqYAlrededores, gba, españa; //SUT
+	ZonaDeCobertura unqYAlrededores, gba, espana; //SUT
 	Ubicacion unq, capital, madrid, estacionBernal, utnBa; //DOC
 	ArrayList<Muestra> muestrasCapital; //DOC
 	ArrayList<ZonaDeCobertura> conUnq; //DOC
@@ -58,7 +58,7 @@ class ZonaDeCoberturaTest {
 		
 		//Crea zonas de cobertura sin muestras previas o zonas solapadas.
 		unqYAlrededores = new ZonaDeCobertura(unq, "Unqui", 0.3d);
-		españa = new ZonaDeCobertura(madrid, "España", 470d);
+		espana = new ZonaDeCobertura(madrid, "Espana", 470d);
 		
 		muestrasCapital = new ArrayList<Muestra>();
 		muestrasCapital.add(m1);
@@ -75,7 +75,7 @@ class ZonaDeCoberturaTest {
 	void testGetNombre() {
 		//Verify
 		assertEquals("Unqui", unqYAlrededores.getNombre());
-		assertEquals("España", españa.getNombre());
+		assertEquals("Espana", espana.getNombre());
 		assertEquals("Gran Buenos Aires", gba.getNombre());
 	}
 
@@ -83,7 +83,7 @@ class ZonaDeCoberturaTest {
 	void testGetEpicentro() {
 		//Verify
 		assertEquals(unq, unqYAlrededores.getEpicentro());
-		assertEquals(madrid, españa.getEpicentro());
+		assertEquals(madrid, espana.getEpicentro());
 		assertEquals(capital, gba.getEpicentro());
 	}
 	
@@ -92,7 +92,7 @@ class ZonaDeCoberturaTest {
 		//Verify
 		assertEquals(50d, gba.getRadio());
 		assertEquals(0.3d, unqYAlrededores.getRadio());
-		assertEquals(470d, españa.getRadio());
+		assertEquals(470d, espana.getRadio());
 	}
 	
 	@Test
@@ -107,9 +107,9 @@ class ZonaDeCoberturaTest {
 		//Notifico a todas las zonas de las demas.
 		//Excercise
 		unqYAlrededores.updateZonaNueva(gba);
-		unqYAlrededores.updateZonaNueva(españa);
-		españa.updateZonaNueva(gba);
-		españa.updateZonaNueva(unqYAlrededores);
+		unqYAlrededores.updateZonaNueva(espana);
+		espana.updateZonaNueva(gba);
+		espana.updateZonaNueva(unqYAlrededores);
 		gba.updateZonaNueva(unqYAlrededores);
 		
 		//Ahora tanto gba como unq se deben contener y ninguna debe
@@ -117,15 +117,15 @@ class ZonaDeCoberturaTest {
 		//Verify
 		
 		//Por tanto las zonas solapadas de españa son ninguna.
-		assertTrue(españa.getZonasSolapadas().isEmpty());
+		assertTrue(espana.getZonasSolapadas().isEmpty());
 		
 		//Unq solo tiene a gba y no a españa.
 		assertTrue(unqYAlrededores.getZonasSolapadas().contains(gba));
-		assertFalse(unqYAlrededores.getZonasSolapadas().contains(españa));
+		assertFalse(unqYAlrededores.getZonasSolapadas().contains(espana));
 		
 		//Gba solo tiene a unq y no a españa.
 		assertTrue(gba.getZonasSolapadas().contains(unqYAlrededores));
-		assertFalse(gba.getZonasSolapadas().contains(españa));
+		assertFalse(gba.getZonasSolapadas().contains(espana));
 	}
 	
 	void testNotificandoOrganizaciones() {

@@ -23,31 +23,28 @@ import java.util.List;
 class UsuarioTestCase {
 
 	private Usuario usba1, usex2, uses3; // SUT (usba = usuario basico, usex = usuario experto, uses = usuario especialista)
-	private Basico catus; // DOC
+	private Basico catba; // DOC
 	private Experto catex; // DOC
 	private Especialista cates; // DOC (catus = categoria basico, catex = categoria experto, cates = categoria especialista)
 	private Sistema sist; // DOC
-	private Ubicacion dummyUbicacion; // DOC
-	private Clasificacion dummyClasificacion; //DOC
-	private Opinion dummyOpinion;
-	private String dummyFoto; // DOC
 	private Muestra m1, m2; // DOC
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		sist = new Sistema();
+		sist = mock(Sistema.class);
 		usba1 = new Usuario(false);
 		usex2 = new Usuario(false);
 		uses3 = new Usuario(true);
-		catus = new Basico();
-		catex = new Experto();
-		cates = new Especialista();
+		catba = mock(Basico.class);
+		catex = mock(Experto.class);
+		cates = mock(Especialista.class);
 		usex2.setCategoria(catex);
-		m1 = new Muestra(dummyUbicacion, usex2, dummyFoto, dummyClasificacion);
-		m2 = new Muestra(dummyUbicacion, usex2, dummyFoto, dummyClasificacion);
-		sist.agregarMuestra(m1);
-		sist.agregarMuestra(m2);
-		sist.agregarOpinion(dummyOpinion, m1);
+		m1 = mock(Muestra.class); m2 = mock(Muestra.class);
+		when(m1.getUsuario()).thenReturn(usba1);
+		when(m2.getUsuario()).thenReturn(usex2);
+		when(catba.esExperto()).thenReturn(false);
+		when(catex.esExperto()).thenReturn(true);
+		when(cates.esExperto()).thenReturn(true);
 	}
 	
 	@Test
@@ -56,11 +53,11 @@ class UsuarioTestCase {
 		assertEquals(true, usex2.esExperto()); //Verify da true porque es Experto
 		assertEquals(true, uses3.esExperto()); //Verify da true porque es Especialista
 	}
+	
 	@Test
-	void testRecategorizarABasico() {
-		assertEquals(true, usex2.esExperto()); //Este usuario fue seteado como Experto
+	void testRecategorizar() {
 		usex2.recategorizar(sist); // Exercise
-		assertEquals(false, usex2.esExperto()); //Verify como el metodo esExperto() da false, este usuario pasa a ser Basico
+		verify(catex, times(1)).recategorizar(sist, usex2); //Verify
 	}
 
 }

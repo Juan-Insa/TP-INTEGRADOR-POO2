@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 class DistanciasTest {
 
-	Ubicacion unq, constitucionCapital, madridEspaña, cairoEgipto; //DOC
+	Ubicacion unq, constitucionCapital, madridEspana, cairoEgipto; //DOC
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -21,9 +21,9 @@ class DistanciasTest {
 		when(constitucionCapital.getLatitud()).thenReturn(-34.628066d);
 		when(constitucionCapital.getLongitud()).thenReturn(-58.379954d);
 		
-		madridEspaña = mock(Ubicacion.class); 
-		when(madridEspaña.getLatitud()).thenReturn(40.415188d);
-		when(madridEspaña.getLongitud()).thenReturn(-3.7070433d);
+		madridEspana = mock(Ubicacion.class); 
+		when(madridEspana.getLatitud()).thenReturn(40.415188d);
+		when(madridEspana.getLongitud()).thenReturn(-3.7070433d);
 		
 		cairoEgipto = mock(Ubicacion.class); 
 		when(cairoEgipto.getLatitud()).thenReturn(30.047279d);
@@ -34,11 +34,11 @@ class DistanciasTest {
 	void testDistancias() {
 		//Las distancias tomadas estan basadas en google maps.
 		//El error de presicion de 500m puede estar dado por diferencias en los radios usados.
-		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, madridEspaña), 10047.53d, .5d);
-		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspaña, unq), 10047.53d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, madridEspana), 10047.53d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspana, unq), 10047.53d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, constitucionCapital), 12.64d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, cairoEgipto), 11808.35d, .5d);
-		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspaña, cairoEgipto), 3349.81d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspana, cairoEgipto), 3349.81d, .5d);
 	}
 
 	@Test
@@ -82,11 +82,11 @@ class DistanciasTest {
 		//Verify
 		//Se testea que los calculos de distancia den con los valores correspondientes a usar
 		//el radio polar en vez del ecuatorial.
-		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, madridEspaña), 10058.87d, .5d);
-		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspaña, unq), 10058.87d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, madridEspana), 10058.87d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspana, unq), 10058.87d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, constitucionCapital), 12.64d, .5d);
 		assertEquals(CalculadoraDistancias.distanciaUbicaciones(unq, cairoEgipto), 11821.5d, .5d);
-		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspaña, cairoEgipto), 3353.4d, .5d);
+		assertEquals(CalculadoraDistancias.distanciaUbicaciones(madridEspana, cairoEgipto), 3353.4d, .5d);
 		
 		//Teardown
 		CalculadoraDistancias.setRadioEcuatorialTierra();
@@ -102,10 +102,10 @@ class DistanciasTest {
 		//Como la distancia de la unq a madrid es de aprox 10047Km, el radio de madrid tocará el radio
 		//de la unq, pero no el de capital. El de capital tambien tocará a la unqui. Finalmente la unqui
 		//los toca a todos.
-		assertTrue(CalculadoraDistancias.estanRadiosSuperpuestos(10000d , unq, 48d, madridEspaña));
-		assertTrue(CalculadoraDistancias.estanRadiosSuperpuestos(48d, madridEspaña, 10000d , unq));
+		assertTrue(CalculadoraDistancias.estanRadiosSuperpuestos(10000d , unq, 48d, madridEspana));
+		assertTrue(CalculadoraDistancias.estanRadiosSuperpuestos(48d, madridEspana, 10000d , unq));
 		assertTrue(CalculadoraDistancias.estanRadiosSuperpuestos(10000d , unq, 5d, constitucionCapital));
-		assertFalse(CalculadoraDistancias.estanRadiosSuperpuestos(48d , madridEspaña, 5d, constitucionCapital));
+		assertFalse(CalculadoraDistancias.estanRadiosSuperpuestos(48d , madridEspana, 5d, constitucionCapital));
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ class DistanciasTest {
 		//Utilizando los mismos casos que el anterior test.
 		//Veremos que el circulo formado con epicentro en Quilmes y de radio de 10000km
 		//debe contener dentro a la capital, pero no a madrid.
-		assertFalse(CalculadoraDistancias.estanDentroDelRadio(10000d , unq, madridEspaña));
+		assertFalse(CalculadoraDistancias.estanDentroDelRadio(10000d , unq, madridEspana));
 		assertTrue(CalculadoraDistancias.estanDentroDelRadio(10000d , unq, constitucionCapital));
 	}
 }
