@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 class DistanciasTest {
 
-	Ubicacion unq, constitucionCapital, madridEspaña, cairoEgipto; //SUT
+	Ubicacion unq, constitucionCapital, madridEspaña, cairoEgipto; //DOC
 	
 	@BeforeEach
 	void setUp() throws Exception {

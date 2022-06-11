@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 class UbicacionTestCase {
 
-	double lon, lat;
-	Ubicacion u1, u2, uErrorLat, uErrorLon;
+	double lon, lat; //DOC
+	Ubicacion u1, u2, uErrorLat, uErrorLon; //SUT
 	
 	@BeforeEach
 	void setUp() throws Exception {

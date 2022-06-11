@@ -49,10 +49,7 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      */
     public ZonaDeCobertura(Ubicacion e, String n, double r, List<ZonaDeCobertura> zonasViejas, List<Muestra> muestrasViejas) {
     	this(e,n,r);
-    	muestrasViejas.forEach(m -> {
-    		this.notificar(m);
-    		this.ingresarMuestra(m);
-    	});
+    	muestrasViejas.forEach(m -> this.ingresarMuestra(m));
     	zonasViejas.forEach(z -> this.updateZonaNueva(z));
     }
     
@@ -81,6 +78,14 @@ public class ZonaDeCobertura implements ZonaDeCoberturaSubject, ZonaObserver {
      */
     public double getRadio() {
     	return radio;
+    }
+    
+    /**
+     * Getter zonas solapadas.
+     * @return Devuelve la lista de zonas solapadas.
+     */
+    public List<ZonaDeCobertura> getZonasSolapadas(){
+    	return zonasSolapadas;
     }
     
     /**
